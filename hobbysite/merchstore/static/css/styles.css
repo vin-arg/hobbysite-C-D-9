@@ -1,0 +1,148 @@
+body {
+    background: #AD9066;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#site-name {
+    background-color: #7a4b39;
+    color: #d4cfcc;
+    padding: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.navbar {
+    background-color: #645840;
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar a {
+    color: #d4cfcc;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    position: relative; 
+    transition: transform 0.3s ease;
+}
+
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 3px;
+    background-color: #d4cfcc;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.navbar a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 3px;
+    background-color: #d4cfcc;
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.welcome {
+    position: relative;
+    padding-top: 100px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.welcome img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(6px);
+}
+
+.welcome h1 {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #eee;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 2.5rem;
+}
+
+.about-us {
+    background: #fff;
+    color: #7A4B39;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+}
+
+#product-tag {
+    background: #7A4B39;
+    width: fit-content;
+    padding: 10px 10px;
+    margin: 0 20px;
+    border-radius: 15px;
+    color:#D4CFCC;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-type {
+    background: #fff;
+    border: 2px solid #7A4B39;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product li {
+    background: #D4CFCC;
+    color: #D4CFCC;
+    border: 3px solid #7A4B39;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    transition: 0.3s;
+    list-style: none;
+    text-align: center;
+}
+
+.product li:hover {
+    background: #7A4B39;
+}
+
+.product li a {
+    color: #7A4B39;
+    text-decoration: none;
+}
+
+.product li a:hover {
+    color: #eee;
+}
