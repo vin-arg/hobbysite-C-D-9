@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block category %}
+
+    <center><h1>Blog Category</h1></center>
+
+    {% for category in categories %}
+        <div>
+            <h2>{{ category.name }}</h2>
+            <p>{{ category.description }}</p>
+            
+            <div>  
+                {% for article in category.art_cat.all %}
+                    <div>{{ article.title }}
+                        <a href="{% url 'article_detail' article.pk %}">Go to Page</a>
+                    </div>
+                    
+                {% empty %}
+                    <div>No articles in this category.</div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% empty %}
+        <div>No categories available</div>
+    {% endfor %}
+
+{% endblock %}
