@@ -6,7 +6,7 @@ class ArticleCategory(models.Model):
     description = models.TextField(null = True)
 
     class Meta:
-        order = ["-created_on"]
+        ordering = ['name']
     
     def __str__(self):
         return self.name
