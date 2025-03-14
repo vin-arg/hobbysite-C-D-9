@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
-    path('commissions/list', views.commissions_list, name = 'commissions_list'),
-    path('item/<int:pk>', views.commissions_detail, name = 'commissions_detail'),
-]
+app_name = "commissions"
 
-app_name = 'commissions'
+urlpatterns = [
+    path('list/', views.commissions_list, name = 'commissions_list'),
+    path('detail/<int:pk>', views.commissions_detail, name = 'commissions_detail'),
+]
