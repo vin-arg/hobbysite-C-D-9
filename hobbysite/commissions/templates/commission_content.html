@@ -7,6 +7,9 @@
 <ul>
     {% for commission in commissions %}
     <li><a href = "{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
+    <ul>{{ commission.description }}</ul>
+    <ul>Created {{ commission.created_on }}</ul>
+    <ul>Last edited {{ commission.updated_on }}</ul>
 {% endfor %}
 </ul>
 {% endblock %}

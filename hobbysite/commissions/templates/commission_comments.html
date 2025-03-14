@@ -9,9 +9,8 @@
 </div>
     <a><br>Comments:</a>
     <ul>
-        {% for comment in commission.comments.all %}
-        1
-        <li>{{ comment.entry }} - {{ comment.created_on }}</li>
+        {% for comment in comments %}
+        <li>{{ comment.entry }}, created {{ comment.created_on }}. Last edited {{ comment.updated_on }} </li>
         {% endfor %}
     </ul>
 {% endblock %}
