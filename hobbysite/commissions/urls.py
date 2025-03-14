@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .views import home
 
 urlpatterns = [
     path("commissions/list", views.commissions_list, name = "commissions_list"),

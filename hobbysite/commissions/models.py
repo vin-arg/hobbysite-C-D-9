@@ -7,9 +7,6 @@ class Commission(models.Model):
     people_required = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
-    def get_absolute_url(self):
-        return reverse('commission_list', args=[self.pk])
     
     class Meta:
         ordering = ["created_on"]
