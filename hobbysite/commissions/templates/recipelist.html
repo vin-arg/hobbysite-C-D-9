@@ -1,0 +1,12 @@
+{% extends "baseTemplate.html" %}
+{% load static %}
+{% block title %} {% endblock %}
+{% block content %}
+
+
+<ul>
+    {% for recipe in recipes %}
+    <li><a href = "{{ recipe.get_absolute_url }}">{{ recipe }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
