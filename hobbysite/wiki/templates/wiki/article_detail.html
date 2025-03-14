@@ -7,16 +7,20 @@
 </head>
 <body>
     <h1>{{ article.title }}</h1>
-    {% if article.category %}
-        <p><strong>Category:</strong> {{ article.category.name }}</p>
-    {% else %}
-        <p><strong>Category:</strong> None</p>
-    {% endif %}
+
+    <p><strong>Category:</strong> 
+        {{ article.category.name|default:"None" }}
+    </p>
+
     <p><strong>Created on:</strong> {{ article.created_on|date:"Y-m-d H:i" }}</p>
     <p><strong>Last updated:</strong> {{ article.updated_on|date:"Y-m-d H:i" }}</p>
+
     <hr>
+
     <p>{{ article.entry|linebreaks }}</p>
+
     <hr>
+
     <a href="{% url 'wiki:articles' %}">Back to Articles</a>
 </body>
 </html>
