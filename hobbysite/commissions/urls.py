@@ -3,10 +3,8 @@ from . import views
 from .views import home
 
 urlpatterns = [
-    path('', home, name = "home"),
-    path("recipes/list", views.recipeList, name = "recipeList"),
-    path("recipe/1", views.recipe1, name = "recipe1"),
-    path("recipe/2", views.recipe2, name = "recipe2")
+    path("commissions/list", views.recipeList, name = "commissions_list"),
+    path("commissions/detail/1", views.recipe1, name = "commissions_detail"),
 ]
 
 app_name = "commissions"
