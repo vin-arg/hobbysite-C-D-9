@@ -15,13 +15,13 @@ class Commission(models.Model):
         return self.title
     
     class Meta:
-        ordering = ["created_on"]
+        ordering = ['created_on']
     
 class Comment(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="comments", null=True)
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name='comments', null=True)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ["created_on"]
+        ordering = ['created_on']

@@ -1,15 +1,12 @@
 {% extends "baseTemplate.html" %}
 {% load static %}
 {% block title %} {% endblock %}
+
 {% block content %}
-
-
-<ul>
-    {% for commission in commissions %}
-    <li><a href = "{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
-    <ul>{{ commission.description }}</ul>
-    <ul>Created {{ commission.created_on }}</ul>
-    <ul>Last edited {{ commission.updated_on }}</ul>
+{% for commission in commissions %}
+<h1><a href = '{{ commission.get_absolute_url }}'>{{ commission.title }}</a></h1>
+<h3>{{ commission.description }}</h3>
+<h6>Created {{ commission.created_on }}</h6>
+<h6>Last edited {{ commission.updated_on }}</h6>
 {% endfor %}
-</ul>
 {% endblock %}

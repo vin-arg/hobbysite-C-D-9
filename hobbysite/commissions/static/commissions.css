@@ -1,9 +1,17 @@
-body {
-    background: #AD9066;
+header {
+    background: #ad9066;
     color: #333;
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
-    padding: 30px;
+    padding: 0;
+}
+
+body {
+    background: #d4cfcc;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
 }
 
 #site-name {
@@ -76,18 +84,8 @@ body {
     text-align: center;
 }
 
-.welcome img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    filter: blur(6px);
-}
-
-.welcome h1 {
+h1 {
+    font-family: 'Courier New', Courier, monospace;
     background-color: rgba(0, 0, 0, 0.6);
     color: #eee;
     padding: 15px 30px;
@@ -95,155 +93,20 @@ body {
     font-size: 2.5rem;
 }
 
-.about-us {
-    background: #fff;
-    color: #7A4B39;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    position: relative;
-    margin: 20px auto;
-    padding: 10px 30px;
-    text-align: center;
-}
-
-.about-us .about-us-tag {
-    background: #7A4B39;
-    width: 100%;
-    margin-top: 0;
-    border-radius: 12px;
-    color:#eee;
-}
-
-.about-us .about-us-content {
-    padding: 5px;
-    text-wrap: wrap;
-    word-wrap: break-word;
-    text-justify: distribute;
-}
-
-.product {
-    background: #fff;
-    color: #7A4B39;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    max-width: 1200px;
-    position: relative;
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
-}
-
-.product h1 {
-    text-align: center;
-    background: #7A4B39;
-    padding: 10px 10px;
-    margin-top: 0;
-    border-radius: 15px;
-    color:#eee;
-}
-
-.product-list {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    gap: 20px;
-    padding: 20px;
-}
-
-.product-type {
-    background: #7A4B39;
-    border: 2px solid #7A4B39;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-}
-
-.product-type h2, .product-type p {
+h3 {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0, 0, 0, 0.6);
     color: #eee;
-}
-
-.product li {
-    background: #ad9066;
+    padding: 15px 30px;
     border-radius: 8px;
-    padding: 10px;
-    margin: 10px 0;
-    transition: 0.3s;
-    list-style: none;
-    text-align: center;
+    font-size: 2.5rem;
 }
 
-.product li:hover {
-    transform: scale(1.05);
-}
-
-.product li a {
-    color: #342923;
-    text-decoration: none;
-}
-
-.product li a:hover {
+h6 {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0, 0, 0, 0.6);
     color: #eee;
-}
-
-.entry {
-    background: #fff;
-    color: #333;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    max-width: 1200px;
-    position: relative;
-    margin: 20px auto;
-    padding: 20px 20px;
-    text-align: center;
-}
-
-.entry h2 {
-    background: #7A4B39;
-    padding: 10px 10px;
-    margin-top: 0;
-    border-radius: 15px;
-    color:#eee;
-}
-
-.entry h3 {
-    text-decoration: underline;
-    color: #7A4B39; 
-    font-size: 1.3rem;
-}
-
-.entry .back-to-home {
-    color: #333;
-    width: fit-content;
-    text-decoration: none;
-    background: #ad9066;
+    padding: 15px 30px;
     border-radius: 8px;
-    padding: 10px;
-    transition: 0.3s;
-    place-self: center;
-}
-
-.entry a {
-    color: #342923;
-    text-decoration: none;
-}
-
-.entry .back-to-home:hover {
-    transform: scale(1.05);
-}
-
-.entry a:hover {
-    color: #eee;
-}
-
-footer {
-    background-color: #342923;
-    color: #d4cfcc;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    font-size: 2.5rem;
 }

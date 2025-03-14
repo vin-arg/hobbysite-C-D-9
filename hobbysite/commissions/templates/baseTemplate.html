@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     {% load static %}
-    <link rel = "stylesheet" href="{% static 'css/commissions.css' %}">
-    <title>Commissions</title>
+    <link rel='stylesheet' href='{% static 'css/commissions.css' %}'>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-
-    <div class="content">
+    <header>Commissions</header>
+    <div class='content'>
         {% block content %}{% endblock %}
     </div>
 </body>
