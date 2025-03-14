@@ -4,12 +4,12 @@
 {% block content %}
 
 <div>
-    <h2>Commission Name: {{ commission.title }} </h2>
+    <h1>Commission Name: {{ commission.title }} </h1>
 </div>
-    <a><br>Comments:</a>
+    <br><h3>Comments:</h3>
     <ul>
         {% for comment in comments %}
-        <li>{{ comment.entry }}, created {{ comment.created_on }}. Last edited {{ comment.updated_on }} </li>
+        <li><i>"{{ comment.entry }}",</i> <h6><b>created</b> {{ comment.created_on }} <b>Last edited</b> {{ comment.updated_on }}</h6> </li>
         {% endfor %}
     </ul>
 {% endblock %}

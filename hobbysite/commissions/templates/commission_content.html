@@ -4,9 +4,10 @@
 
 {% block content %}
 {% for commission in commissions %}
+
 <h1><a href = '{{ commission.get_absolute_url }}'>{{ commission.title }}</a></h1>
 <h3>{{ commission.description }}</h3>
-<h6>Created {{ commission.created_on }}</h6>
-<h6>Last edited {{ commission.updated_on }}</h6>
+<h6><b>posted</b> {{ commission.created_on }}</h6> <h6><b>last edited</b> {{ commission.updated_on }}</h6>
+
 {% endfor %}
 {% endblock %}
