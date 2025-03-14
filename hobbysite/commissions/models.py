@@ -12,7 +12,7 @@ class Commission(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('commission:commission_detail', args=[self.pk])
+        return reverse('commission_list', args=[self.pk])
     
 class Comment(models.Model):
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="comment", null=True)
@@ -25,4 +25,4 @@ class Comment(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('commission:commission_list', args=[self.pk])
+        return reverse('commission_detail', args=[self.pk])
