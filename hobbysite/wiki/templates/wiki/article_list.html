@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Articles</title>
+    <link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+</head>
+<body>
+    <h1>Wiki Articles</h1>
+
+    {% if articlecategories %}
+        {% for category in articlecategories %}
+            <section>
+                <h2>{{ category.name }}</h2>
+                <p>{{ category.description }}</p>
+
+                {% if category.articles.all %}
+                    <ul>
+                        {% for article in category.articles.all %}
+                            <li>
+                                <a href="{% url 'wiki:article_detail' article.pk %}">
+                                    {{ article.title }}
+                                </a> 
+                                (Created on {{ article.created_on|date:"Y-m-d" }})
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No articles in this category.</p>
+                {% endif %}
+            </section>
+        {% endfor %}
+    {% else %}
+        <p>No categories found.</p>
+    {% endif %}
+    <footer>&copy;2025 Hobbysite. All Rights Reserved.</footer>
+</body>
+</html>

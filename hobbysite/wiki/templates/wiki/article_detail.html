@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+
+    <p><strong>Category:</strong> 
+        {{ article.category.name|default:"None" }}
+    </p>
+
+    <p><strong>Created on:</strong> {{ article.created_on|date:"Y-m-d H:i" }}</p>
+    <p><strong>Last updated:</strong> {{ article.updated_on|date:"Y-m-d H:i" }}</p>
+
+    <hr>
+
+    <p>{{ article.entry|linebreaks }}</p>
+
+    <hr>
+
+    <a href="{% url 'wiki:articles' %}">Back to Articles</a>
+
+    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
+</body>
+</html>
