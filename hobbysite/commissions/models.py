@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-# Create your models here.
 
 class Commission(models.Model):
     title = models.CharField(max_length=255)
@@ -13,7 +12,7 @@ class Commission(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('ledger:ingredientDetail', args=[self.pk])
+        return reverse('commission:commission_detail', args=[self.pk])
     
 class Comment(models.Model):
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="comment", null=True)
@@ -26,4 +25,4 @@ class Comment(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('ledger:recipeDetail', args=[self.pk])
+        return reverse('commission:commission_list', args=[self.pk])
