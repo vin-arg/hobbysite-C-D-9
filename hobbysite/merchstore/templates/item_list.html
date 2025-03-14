@@ -7,50 +7,43 @@
 {% block content %}
 
 
-    <h1 id="site-name">HobbySite</h1>
-    <div class="navbar">
-        <a href="#">Wiki</a>
-        <a href="#">Forum</a>
-        <a href="#">Blog</a>
-        <a href="#">Commission</a>
-        <a href="#" class="active">Merchandise</a>
-    </div>
-
-    <div class="welcome">
-        <img src="{% static 'images/merchstore.jpg' %}" alt="Merch Store Header">
-        <h1>Welcome to Our Merch Store!</h1>
-    </div>
-
-    <div class="about-us">
-        <div class="about-us-tag">
-            <h1>About Us</h1>
+    <div class="body-content">
+        <div class="welcome">
+            <img src="{% static 'images/merchstore.jpg' %}" alt="Merch Store Header">
+            <h1>Welcome to Our Merch Store!</h1>
         </div>
-        <div class="about-us-content">
-            <p>waaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaa</p>
+
+        <div class="about-us">
+            <div class="about-us-tag">
+                <h1>About Us</h1>
+            </div>
+            <div class="about-us-content">
+                <p>waaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaawaaaaaaaawaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaaaawaaaaaaaaaaaaaaaaa</p>
+            </div>
         </div>
-    </div>
 
 
-    <div class="product">
-        <h1 id="product-tag">Products</h1>
-        <div class="product-list">
-            {% for product_type in product_types %}
-                <div class="product-type">
-                    <h2>{{ product_type.name }}</h2>
-                    <p>{{ product_type.description }}</p>
+        <div class="product">
+            <h1 id="product-tag">Products</h1>
+            <div class="product-list">
+                {% for product_type in product_types %}
+                    <div class="product-type">
+                        <h2>{{ product_type.name }}</h2>
+                        <p>{{ product_type.description }}</p>
 
-                    {% if product_type.products.all %}
-                    <ul class="product">
-                        {% for product in product_type.products.all %}
-                            <li><a href="{% url 'itemEntry' product.id %}">{{ product.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+                        {% if product_type.products.all %}
+                        <ul class="product">
+                            {% for product in product_type.products.all %}
+                                <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                            {% endfor %}
+                        </ul>
 
-                    {% else %}
-                        <p>No products available yet.</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
+                        {% else %}
+                            <p>No products available yet.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
