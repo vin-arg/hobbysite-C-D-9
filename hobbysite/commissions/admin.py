@@ -11,7 +11,6 @@ class CommentAdmin(admin.ModelAdmin):
     model = Comment
     list_display = ('created_on', 'updated_on')
     search_fields = ('title', 'entry',)
-    list_filter = ('people_required',)
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Comment, CommentAdmin)
