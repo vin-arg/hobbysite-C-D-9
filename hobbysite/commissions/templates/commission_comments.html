@@ -4,12 +4,12 @@
 {% block content %}
 
 <div>
-    {{ recipe.name }}
+    {{ Commission.title }}
 </div>
-    <a><br>Ingredients:</a>
+    <a><br>Comments:</a>
     <ul>
-        {% for ingredient in recipe.ingredients.all %}
-        <li>{{ ingredient.Quantity }} of {{ ingredient.Ingredient.name }}</li>
+        {% for comment in commissions.comments.all %}
+        <li>{{ comment.entry }} of {{ comment.created_on }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

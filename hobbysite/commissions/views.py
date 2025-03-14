@@ -6,5 +6,5 @@ def commissions_list(request):
     return render(request, "commission_content.html", {'commissions': commissions},)
 
 def commissions_detail(request, pk):
-    details = Comment.objects.get(pk=pk)
+    details = Commission.objects.get(pk=pk)
     return render(request, "commission_comments.html", {"details": details},)

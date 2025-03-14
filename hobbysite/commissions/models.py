@@ -9,7 +9,7 @@ class Commission(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     
     def get_absolute_url(self):
-        return reverse('commissions:commissions_list', args=[self.pk])
+        return reverse('commissions:commissions_detail', args=[self.pk])
     
     class Meta:
         ordering = ["created_on"]
@@ -19,9 +19,6 @@ class Comment(models.Model):
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
-    def get_absolute_url(self):
-        return reverse('commissions:commissions_detail', args=[self.pk])
     
     class Meta:
         ordering = ["created_on"]
