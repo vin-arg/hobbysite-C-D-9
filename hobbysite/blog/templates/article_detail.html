@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block list %}
+    
+    <h1>{{ article.title }}</h1>
+    <p><strong>Category:</strong> {{ article.category }}</p>
+    
+    <div class="entry">
+    <p>{{ article.entry }}</p>
+    </div>
+
+
+    <div class="down">
+        <p><em>Created on: {{ article.created_on }}</em></p>
+        <p><em>Updated on: {{ article.updated_on }}</em></p>
+
+    <a href="/blog/articles/" class="button">Back to Blog</a>
+    </div>
+    
+
+{% endblock %}

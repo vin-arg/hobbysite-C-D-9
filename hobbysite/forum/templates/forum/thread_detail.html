@@ -1,0 +1,12 @@
+{% extends "forum/base.html" %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <p><strong>Category:</strong> {{ post.category.name }}</p>
+    <p><strong>Created on:</strong> {{ post.created_on|date:"Y-m-d H:i" }}</p>
+    <p><strong>Last updated:</strong> {{ post.updated_on|date:"Y-m-d H:i" }}</p>
+    <hr>
+    <p>{{ post.entry }}</p>
+    <br>
+    <a href="{% url 'forum:thread_list' %}">Back to Threads</a>
+{% endblock %}

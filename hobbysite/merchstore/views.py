@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .models import *
 
-def itemList(request):
+def item_list(request):
     products = Product.objects.all()
     product_types = ProductType.objects.all()
     return render(request, "item_list.html", {'products': products, 'product_types': product_types})
 
-def itemEntry(request, num=1):
+def item_entry(request, num=1):
 
     product = Product.objects.get(id=num)
     product_type = product.product_type
