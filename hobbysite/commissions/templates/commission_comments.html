@@ -5,11 +5,13 @@
 
 <div>
     {{ Commission.title }}
+    {{ Commission.description }}
 </div>
     <a><br>Comments:</a>
     <ul>
-        {% for comment in commissions.comments.all %}
-        <li>{{ comment.entry }} of {{ comment.created_on }}</li>
+        {% for comment in commission.comments.all %}
+        1
+        <li>{{ comment.entry }} - {{ comment.created_on }}</li>
         {% endfor %}
     </ul>
 {% endblock %}
