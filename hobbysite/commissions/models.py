@@ -16,7 +16,7 @@ class Commission(models.Model):
         return reverse('ledger:ingredientDetail', args=[self.pk])
     
 class Comment(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE)
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="comment", null=True)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
