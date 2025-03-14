@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/blog.css">
     <title>{% block title %}{% endblock %}</title>
     
 </head>
@@ -12,10 +12,10 @@
     </header>
 
     <nav>
-        <a href="{% url 'itemList' %}">Merchandise</a>
+        <a href="{% url 'item_list' %}">Merchandise</a>
         <a href="#">Wiki</a>
         <a href="{% url 'article_list' %}">Blog</a>
-        <a href="#">Forum</a>
+        <a href="{% url 'thread_list' %}">Forum</a>
         <a href="#">Commission</a>
     </nav>
 
