@@ -1,0 +1,123 @@
+header {
+    background-color: #7a4b39;
+    color: #d4cfcc;
+    padding: 30px;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #d4cfcc;
+    color: #342923;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #645840;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+nav a {
+    color: #d4cfcc;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.category_container {
+    width: 100%;
+    max-width: 1200px;  
+    margin: 20px auto;  
+    padding: 20px;
+    border: 2px solid #7f5a4c;
+    box-sizing: border-box;  
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.article_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    text-align: center;
+}
+
+.artlist_cont {
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: 200px;
+    padding: 20px;
+    border: 2px solid #7f5a4c;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    text-align: center;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+footer {
+    background-color: #342923;
+    color: #d4cfcc;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+div {
+    text-align: center;
+    margin: auto;
+    max-width: 700px;
+}
+
+.button {
+    background-color: #ad9066;
+    color: #342923;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.entry {
+    text-align: justify;
+    line-height: 1.6; 
+    font-size: 17px;
+    width: 80%; 
+    max-width: 800px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.down {
+    text-align: center;
+    margin-top: auto; 
+    padding-top: 20px;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+}

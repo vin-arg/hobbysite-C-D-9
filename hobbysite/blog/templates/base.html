@@ -2,15 +2,35 @@
 <html lang="en-US">
 
 <head>
+    <link rel="stylesheet" href="/static/styles.css">
     <title>{% block title %}{% endblock %}</title>
     
 </head>
 <body>
-    
+    <header>
+        Hobbysite
+    </header>
+
+    <nav>
+        <a href="{% url 'itemList' %}">Merchandise</a>
+        <a href="#">Wiki</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="#">Forum</a>
+        <a href="#">Commission</a>
+    </nav>
+
     <div>
         {% block category %}{% endblock %}
     </div>
 
 
+    <div >
+        {% block list %}{% endblock %}
+    </div>
+
+    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
+
 </body>
 </html>
+
+
