@@ -5,8 +5,8 @@
 
 
 <ul>
-    {% for recipe in recipes %}
-    <li><a href = "{{ recipe.get_absolute_url }}">{{ recipe }}</a></li>
+    {% for commission in commissions %}
+    <li><a href = "{{ commission.get_absolute_url }}">{{ commission }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
