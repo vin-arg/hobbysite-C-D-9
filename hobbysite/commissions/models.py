@@ -7,9 +7,6 @@ class Commission(models.Model):
     people_required = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse('commission_list', args=[self.pk])
@@ -22,10 +19,6 @@ class Comment(models.Model):
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
-    
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse('commission_detail', args=[self.pk])
