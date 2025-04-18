@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{% url 'article_list' %}">
+            <button type="submit">Login</button>
+        </form>
+        Forget your password? Click <a href="{% url 'password_reset' %}">here</a>
+    </body>
+</html>

@@ -6,6 +6,21 @@
     
 <h1>Article Create</h1>
 
+<b> Add Category</b>
+
+<form method = "post">
+    {% csrf_token %}
+    {{ category_form.as_p }}
+    <button type ="submit">Add</button>
+</form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 <b> Add Article</b>
 
 <form method = "post">
