@@ -1,13 +1,16 @@
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.shortcuts import render, get_object_or_404
 from .models import Article, ArticleCategory
 
-class ArticleListView(ListView):
-    model = Article
-    template_name = "wiki/article_list.html"
-    context_object_name = "articles"
-    extra_context = {"articlecategories": ArticleCategory.objects.all()}
+def article_list_view(request):
+    articles = Article.objects.all()
+    articlecategories = ArticleCategory.objects.all()
+    return render(request, "wiki/article_list.html", {
+        "articles": articles,
+        "articlecategories": articlecategories
+    })
 
-class ArticleDetailView(DetailView):
-    model = Article
-    template_name = "wiki/article_detail.html"
+def article_detail_view(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, "wiki/article_detail.html", {
+        "article": article
+    })
