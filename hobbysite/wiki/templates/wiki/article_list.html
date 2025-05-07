@@ -1,39 +1,61 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Articles</title>
-    <link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
-</head>
-<body>
-    <h1>Wiki Articles</h1>
+{% extends 'base.html' %}
 
-    {% if articlecategories %}
-        {% for category in articlecategories %}
-            <section>
-                <h2>{{ category.name }}</h2>
-                <p>{{ category.description }}</p>
+{% block title %}Wiki{% endblock %}
 
-                {% if category.articles.all %}
-                    <ul>
-                        {% for article in category.articles.all %}
-                            <li>
-                                <a href="{% url 'wiki:article_detail' article.pk %}">
-                                    {{ article.title }}
-                                </a> 
-                                (Created on {{ article.created_on|date:"Y-m-d" }})
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No articles in this category.</p>
-                {% endif %}
-            </section>
-        {% endfor %}
+{% block category %}
+
+<h1>Wiki Categories</h1>
+
+<div>
+    {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="nav-link">Logout</button>
+        </form>
     {% else %}
-        <p>No categories found.</p>
+        <a href="{% url 'login' %}">Login</a>
     {% endif %}
-</body>
-</html>
+</div>
+
+{% for category in articlecategories %}
+    <div class="category_container">
+        <h2>{{ category.name }}</h2>
+        <p>{{ category.description }}</p>
+        
+        <div class="article_list">  
+            {% for article in category.articles.all %}
+                <div class="artlist_cont">
+                    {{ article.title }}
+                    <a href="{% url 'wiki:article_detail' article.pk %}" class="button">Go to Page</a>
+                </div>
+            {% empty %}
+                <div class="artlist_cont">No articles in this category.</div>
+            {% endfor %}
+        </div>
+    </div>
+{% empty %}
+    <div>No categories available</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block list %}
+
+<h2>All Wiki Articles</h2>
+
+<div class="article_list">
+    {% for article in articles %}
+        <div class="artlist_cont">
+            <a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a>
+            <span>- {{ article.created_on|date:"Y-m-d" }}</span>
+        </div>
+    {% empty %}
+        <div>No articles available</div>
+    {% endfor %}
+</div>
+
+<br>
+
+<a href="{% url 'wiki:article_create' %}" class="button">Add Article</a>
+
+{% endblock %}
