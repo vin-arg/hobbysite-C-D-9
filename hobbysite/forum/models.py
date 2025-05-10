@@ -22,7 +22,7 @@ class Thread(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    #sort by date
+    #sort by descending date
     class Meta:
         ordering = ['-created_on']
 
@@ -37,6 +37,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True) 
     updated_on = models.DateTimeField(auto_now=True) 
 
+    #sort by ascending date
     class Meta:
         ordering = ['created_on']
 
