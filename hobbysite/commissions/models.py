@@ -40,7 +40,12 @@ class Job(models.Model):
     
     class Meta:
         ordering = [
-            'status',
+            models.Case(
+                models.When(status='Open', then=0),
+                models.When(status='Full', then=1),
+                default=2,
+                output_field=models.IntegerField(),
+            ),
             '-manpower_required',
             'role',
         ]
@@ -64,6 +69,7 @@ class JobApplication(models.Model):
                     models.When(status = 'Pending', then=0),
                     models.When(status = 'Accepted', then=1),
                     models.When(status = 'Rejected', then=2),
+                    default=3
                     output_field=models.IntegerField()            
                 ),
                 '-applied_on',
