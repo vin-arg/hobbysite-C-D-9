@@ -1,4 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    bio = models.CharField(max_length=255)
+
 
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
@@ -12,6 +19,7 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="art_cat")
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

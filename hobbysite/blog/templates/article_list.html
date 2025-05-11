@@ -6,6 +6,19 @@
 
     <h1>Blog Category</h1>
 
+    <div>
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="hidden" name="next" value="{% url 'login' %}">
+                <button class="nav-link" type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
     {% for category in categories %}
         <div class="category_container">
             <h2>{{ category.name }}</h2>
@@ -42,5 +55,10 @@
             <div>No articles available</div>
         {% endfor %}
     </div>
+
+
+    <br>
+
+    <a href="{% url 'article_create' %}"> Add Article</a>
 
 {% endblock %}
