@@ -69,7 +69,7 @@ class JobApplication(models.Model):
                     models.When(status = 'Pending', then=0),
                     models.When(status = 'Accepted', then=1),
                     models.When(status = 'Rejected', then=2),
-                    default=3
+                    default=3,
                     output_field=models.IntegerField()            
                 ),
                 '-applied_on',
