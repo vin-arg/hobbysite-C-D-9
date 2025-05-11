@@ -13,6 +13,6 @@
     <button type ="submit">Make edit</button>
 </form>
 
-<a href="/blog/articles/" class="button">Back to Blog</a>
+<a href="{% url 'article_detail' article.pk  %}" class="button">Back to Article</a>
 
 {% endblock %}

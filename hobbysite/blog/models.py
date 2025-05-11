@@ -25,3 +25,19 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class ArticleComment(models.Model):
+    author = models.ForeignKey('user_management.Profile', on_delete=models.CASCADE, null=True, blank=True)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_on'] 
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.article}"
+
+    

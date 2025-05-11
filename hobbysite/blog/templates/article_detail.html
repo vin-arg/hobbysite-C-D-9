@@ -17,6 +17,12 @@
         {% endif %}
     </ul>
 
+    <div>
+        {% if request.user.is_authenticated and request.user == article.author.user %}
+            <a href="{% url 'article_update' article.id %}" class="button">Edit Article</a>
+        {% endif %}
+    </div>
+
 
     <div class="down">
         <p><em>Created on: {{ article.created_on }}</em></p>
@@ -24,6 +30,24 @@
 
     <a href="/blog/articles/" class="button">Back to Blog</a>
     </div>
+
+
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.entry }}</p>
+            <p><small><em>By {{ comment.author }} on {{ comment.created_on }}</em></small></p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <h3>Leave a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
     
 
 {% endblock %}

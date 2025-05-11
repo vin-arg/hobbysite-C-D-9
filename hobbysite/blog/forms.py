@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article, ArticleCategory
+from .models import Article, ArticleCategory, ArticleComment
 
 
 class ArticleForm(forms.ModelForm):
@@ -16,3 +16,11 @@ class ArticleUpdateForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'category', 'entry', 'image']
+
+class ArticleCommentForm(forms.ModelForm):
+    class Meta:
+        model = ArticleComment
+        fields = ['entry']
+        widgets = {
+            'entry': forms.Textarea(attrs={'rows': 4}),
+        }
