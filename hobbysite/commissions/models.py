@@ -4,7 +4,7 @@ from django.urls import reverse
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    people_required = models.IntegerField()
+    status = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -17,11 +17,11 @@ class Commission(models.Model):
     class Meta:
         ordering = ['created_on']
     
-class Comment(models.Model):
+class Job(models.Model):
     commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name='comments', null=True)
-    entry = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+    role = models.CharField(max_length=255)
+    manpower_required = models.IntegerField()
+    status = models.CharField(max_length=255)
     
     class Meta:
-        ordering = ['created_on']
+        ordering = ['status']
