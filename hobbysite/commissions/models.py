@@ -23,7 +23,7 @@ class Commission(models.Model):
         return self.title
     
     class Meta:
-        ordering = ['created_on']
+        ordering = [['created_on']]
     
 class Job(models.Model):
     
@@ -38,7 +38,11 @@ class Job(models.Model):
     status = models.CharField(max_length=4, choices=STATUS_CHOICES, default="Open")
     
     class Meta:
-        ordering = ['status']
+        ordering = [
+            'status',
+            '-manpower_required',
+            'role',
+        ]
         
 class JobApplication(models.Model):
     
@@ -52,3 +56,14 @@ class JobApplication(models.Model):
     applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='JobApplication', null=True)
     status = models.CharField(max_length=255)
     applied_on = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = [
+                models.Case(
+                    models.When(status = 'Pending', then=0),
+                    models.When(status = 'Accepted', then=1),
+                    models.When(status = 'Rejected', then=2),
+                    output_field=models.IntegerField()            
+                ),
+                '-applied_on',
+            ]
