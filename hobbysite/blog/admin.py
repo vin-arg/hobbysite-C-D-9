@@ -1,13 +1,6 @@
 from django.contrib import admin
-from .models import ArticleCategory, Article, Profile
-from django.contrib.auth.models import User
+from .models import ArticleCategory, Article
 
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-
-class UserAdmin(admin.ModelAdmin):
-    inlines = [ProfileInline]
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description',)
@@ -19,8 +12,7 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('title', 'entry',)
     list_filter = ('category', 'created_on',)
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+
 
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
 admin.site.register(Article, ArticleAdmin)

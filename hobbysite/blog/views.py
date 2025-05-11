@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Article, ArticleCategory
 from .forms import ArticleForm, ArticleCategoryForm
-from django.contrib.auth.decorators import login_required
 
 def article_list(request):
     articles = Article.objects.all()
@@ -9,7 +8,6 @@ def article_list(request):
     categories = ArticleCategory.objects.prefetch_related('art_cat').all()
     return render(request, 'article_list.html', {'articles': articles, 'detail': details, 'categories':categories})
 
-@login_required
 def article_detail(request, num=1):
     article = Article.objects.filter(pk=num).first() 
     return render(request, 'article_detail.html', {'article': article})
