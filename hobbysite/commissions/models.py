@@ -33,7 +33,7 @@ class Job(models.Model):
         ('Full', 'Full'),
     ]
     
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name='Job', null=True)
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, null=True)
     role = models.CharField(max_length=255)
     manpower_required = models.IntegerField()
     status = models.CharField(max_length=4, choices=STATUS_CHOICES, default="Open")
@@ -53,8 +53,8 @@ class JobApplication(models.Model):
         ('Rejected', 'Rejected'),
     ]
     
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='JobApplication', null=True)
-    applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='JobApplication', null=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=True)
+    applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='Pending')
     applied_on = models.DateTimeField(auto_now_add=True)
     
