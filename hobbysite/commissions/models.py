@@ -24,7 +24,7 @@ class Commission(models.Model):
         return self.title
     
     class Meta:
-        ordering = [['created_on']]
+        ordering = ['created_on']
     
 class Job(models.Model):
     
@@ -55,7 +55,7 @@ class JobApplication(models.Model):
     
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='JobApplication', null=True)
     applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='JobApplication', null=True)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='Pending')
     applied_on = models.DateTimeField(auto_now_add=True)
     
     class Meta:
