@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog',
     'forum',
     'wiki',
+    'user_management',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home_page'         
+LOGOUT_REDIRECT_URL = 'login'      
+LOGIN_URL = 'login'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR/'static',
+]
+
+MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_URL = '/media/'
