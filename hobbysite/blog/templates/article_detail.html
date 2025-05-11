@@ -11,6 +11,12 @@
     <p>{{ article.entry }}</p>
     </div>
 
+    <ul>
+        {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width: 100%; height: auto;">
+        {% endif %}
+    </ul>
+
 
     <div class="down">
         <p><em>Created on: {{ article.created_on }}</em></p>

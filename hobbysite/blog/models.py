@@ -16,6 +16,7 @@ class Article(models.Model):
     author = models.ForeignKey('user_management.Profile', on_delete=models.CASCADE)
     category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="art_cat")
     entry = models.TextField()
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     

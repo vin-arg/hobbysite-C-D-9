@@ -23,7 +23,7 @@
 
 <b> Add Article</b>
 
-<form method = "post">
+<form method = "post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ article_form.as_p }}
     <button type ="submit">Add</button>
