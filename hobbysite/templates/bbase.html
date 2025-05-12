@@ -4,60 +4,80 @@
 <head>
     
     <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="{% static 'css/central.css' %}">
 
 </head>
 <body>
-    <header>
-        Hobbysite
-    </header>
-
-    <nav>
-        <a href="{% url 'item_list' %}">Merchandise</a>
-        <a href="{% url 'wiki:articles' %}">Wiki</a>
-        <a href="{% url 'article_list' %}">Blog</a>
-        <a href="{% url 'forum:thread_list' %}">Forum</a>
-        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
-    </nav>
-
     <nav class="navbar has-shadow is-white">
 
         <div class="navbar-brand">
             <a href="{% url 'home_page' %}" class="navbar-item">
                 <h1 class="title">HobbySite</h1>
             </a>
-            <a href="#" class="navbar-burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </a>
         </div>
 
         <div class="navbar-menu" id="nav-links">
+            <div class="navbar-start">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Merchandise</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'item_cart' %}">Cart</a>
+                        <a class="navbar-item" href="{% url 'item_transactions' %}">Transactions</a>
+                        <a class="navbar-item" href="{% url 'item_add' %}">Sell a Product</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Wiki</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'wiki:articles' %}">Article List</a>
+                        <a class="navbar-item" href="{% url 'wiki:article_create' %}">Write an Article</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Blog</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'article_list' %}">Article List</a>
+                        <a class="navbar-item" href="{% url 'article_create' %}">Write an Article</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Forum</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'forum:thread_list' %}">Full Thread List</a>
+                        <a class="navbar-item" href="{% url 'forum:thread_create' %}">Start a Thread</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Commission</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'commissions:commissions_list' %}">Commissions List</a>
+                        <a class="navbar-item" href="{% url 'commissions:commissions_add' %}">Add a Commission</a>
+                    </div>
+                </div>
+            </div>
             <div class="navbar-end">
-                <a href="#" class="navbar-item">My Account</a>
-                <a href="#" class="navbar-item">My Cart</a>
+                <a class="navbar-item px-6" href="{% url 'profile' %}">My Profile</a>
             </div>
         </div>
     </nav>
 
     <div>
-        {% block category %}{% endblock %}
-    </div>
-
-
-    <div >
-        {% block list %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 
     <br>
     <br>
     <br>
 
-    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
+    <footer class="footer py-2">
+        <div class="content has-text-centered">
+            &copy; 2025 Almojuela, Arguelles, Sapitula, Tan, Tormon. All Rights Reserved.
+        </div>
+    </footer>
 
 </body>
 </html>

@@ -4,5 +4,36 @@
     --dark: #342923;
     --accent1: #7A4B39;
     --accent2: #645840;
+    --white: #f5f6fa;
 }
 
+body {
+    background-color: var(--light);
+}
+
+.navbar {
+    background-color: var(--accent1) !important;
+}
+
+.navbar-item, .navbar-link {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+}
+
+
+.navbar-item:hover, .navbar-link:hover {
+    background-color: var(--accent2) !important;
+}
+
+.navbar-dropdown {
+    background-color: var(--accent1) !important;
+}
+
+.navbar-dropdown .navbar-item:hover {
+    background-color: var(--accent2) !important;
+}
+
+.footer {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+}
