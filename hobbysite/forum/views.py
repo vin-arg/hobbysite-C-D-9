@@ -60,19 +60,17 @@ def thread_detail(request, pk):
 
 @login_required
 def thread_create(request):
-    if request.method == 'POST':
-        form = ThreadForm(request.POST, request.FILES)
-        if form.is_valid():
-            thread = form.save(commit=False)
-            thread.author = request.user.profile
-            thread.save()
-            return redirect('forum:thread_detail', pk=thread.pk)
-    else:
-        form = ThreadForm()
+    if not hasattr(request.user, 'profile'):
+        Profile.objects.create(user=request.user)
 
-    return render(request, 'forum/thread_form.html', {
-        'form': form
-    })
+    thread_form = ThreadForm(request.POST or None, request.FILES or None)
+    if thread_form.is_valid():
+        thread = thread_form.save(commit=False)
+        thread.author = request.user.profile  
+        thread.save()
+        return redirect('forum:thread_detail', pk=thread.pk)
+
+    return render(request, 'forum/thread_form.html', {'form': thread_form})
 
 
 @login_required
