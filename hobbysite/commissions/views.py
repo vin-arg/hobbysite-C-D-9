@@ -30,7 +30,7 @@ def commission_list(request):
         
     return render(request, 'commissions/commission_list.html', ctx)
 
-def commissions_detail(request, pk):
+def commission_detail(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
     
     total_manpower = commission.jobs.aggregate(
