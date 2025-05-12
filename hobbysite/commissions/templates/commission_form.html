@@ -9,7 +9,6 @@
     <form method="post">
         {% csrf_token %}
         
-        <!-- Commission Fields -->
         <div class="form-group">
             {{ form.title.label_tag }}
             {{ form.title }}
@@ -40,13 +39,12 @@
         </div>
         {% endif %}
         
-        <!-- Jobs Formset -->
         <h2>Jobs</h2>
         {{ formset.management_form }}
         {% for form in formset %}
             <div class="job-form card mb-3">
                 <div class="card-body">
-                    {{ form.id }}  <!-- Hidden field for existing instances -->
+                    {{ form.id }}
                     
                     <div class="row">
                         <div class="col-md-4">

@@ -5,7 +5,6 @@
 {% block content %}
 <div class="commissions-list">
     {% if user.is_authenticated %}
-        <!-- User's Created Commissions -->
         <div class="user-commissions">
             <h2>Your Commissions</h2>
             {% if user_commissions %}
@@ -27,7 +26,6 @@
             {% endif %}
         </div>
 
-        <!-- Commissions User Applied To -->
         <div class="applied-commissions">
             <h2>Applied Commissions</h2>
             {% if applied_commissions %}
@@ -50,7 +48,6 @@
         </div>
     {% endif %}
 
-    <!-- All Commissions -->
     <div class="all-commissions">
         <h2>All Commissions</h2>
         {% for commission in commissions %}
