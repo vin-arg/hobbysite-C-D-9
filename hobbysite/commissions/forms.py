@@ -30,5 +30,5 @@ JobFormSet = inlineformset_factory(
     Commission,
     Job,
     form=JobForm,
-    extra=2,
+    extra=1
 )

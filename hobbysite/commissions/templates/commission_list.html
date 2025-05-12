@@ -1,4 +1,4 @@
-{% extends "baseTemplate.html" %}
+{% extends "base_template.html" %}
 {% load static %}
 {% block title %}Commissions List{% endblock %}
 
@@ -72,7 +72,7 @@
 
     {% if user.is_authenticated %}
     <div class="create-link">
-        <a href="{% url 'commissions:create' %}">Create New Commission</a>
+        <a href="{% url 'commissions:commissions_add' %}">Create New Commission</a>
     </div>
     {% endif %}
 </div>

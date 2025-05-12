@@ -1,4 +1,4 @@
-{% extends "baseTemplate.html" %}
+{% extends "base_template.html" %}
 
 {% block title %}{{ commission.title }}{% endblock %}
 
@@ -9,7 +9,7 @@
         <span class="status {{ commission.status|lower }}">{{ commission.get_status_display }}</span>
         <span>Created: {{ commission.created_on|date:"M d, Y" }}</span>
         {% if can_edit %}
-        <a href="{% url 'commissions:update' pk=commission.pk %}" class="edit-link">Edit</a>
+        <a href="{% url 'commissions:commissions_edit' pk=commission.pk %}" class="edit-link">Edit</a>
         {% endif %}
     </div>
     

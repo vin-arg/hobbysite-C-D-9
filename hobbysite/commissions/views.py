@@ -22,13 +22,13 @@ def commission_list(request):
     if request.user.is_authenticated:
         profile = request.user.profile
         ctx.update({
-            'user_commissions': profile.commissions.all().order_by('-created_on'),
+            'user_commissions': Commission.objects.filter(author=profile),
             'applied_commissions': Commission.objects.filter(
                 jobs__applications__applicant=profile
             ).distinct().order_by('-created_on')
         })
         
-    return render(request, 'commissions/commission_list.html', ctx)
+    return render(request, 'commission_list.html', ctx)
 
 def commission_detail(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
@@ -64,7 +64,7 @@ def commission_detail(request, pk):
         'can_edit': request.user.is_authenticated and request.user.profile == commission.author
     }
     
-    return render(request, 'commissions/commission_detail.html', ctx)
+    return render(request, 'commission_detail.html', ctx)
 
 @login_required
 def commission_create(request):
@@ -127,7 +127,7 @@ def commission_update(request, pk):
             prefix='jobs'
         )
 
-    return render(request, 'commissions/commission_form.html', {
+    return render(request, 'commission_form.html', {
         'form': form,
         'formset': formset,
         'commission': commission,

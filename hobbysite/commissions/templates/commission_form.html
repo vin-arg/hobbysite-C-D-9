@@ -1,4 +1,4 @@
-{% extends "baseTemplate.html" %}
+{% extends "base_template.html" %}
 
 {% block title %}{% if editing %}Update{% else %}Create{% endif %} Commission{% endblock %}
 
@@ -77,7 +77,7 @@
             <button type="submit" class="btn btn-primary">
                 {% if editing %}Update{% else %}Create{% endif %} Commission
             </button>
-            <a href="{% if editing %}{% url 'commissions:detail' pk=commission.pk %}{% else %}{% url 'commissions:list' %}{% endif %}" 
+            <a href="{% if editing %}{% url 'commissions:detail' pk=commission.pk %}{% else %}{% url 'commissions:commissions_list' %}{% endif %}" 
                class="btn btn-secondary">
                 Cancel
             </a>

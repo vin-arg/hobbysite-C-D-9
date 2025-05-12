@@ -16,6 +16,7 @@ class Commission(models.Model):
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="Open")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
         return reverse('commissions:commissions_detail', args=[self.pk])
