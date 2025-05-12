@@ -38,3 +38,18 @@ def item_edit(request, num=1):
             form.save()
             return redirect('item_entry', num)
     return render(request, 'item_edit.html', {'edit_form': form, 'product': product})
+
+@login_required
+def item_cart(request):
+    # buyer transactions
+    transactions = Transaction.objects.filter(buyer=request.user.profile)
+    return render(request, "item_cart.html", {'transactions': transactions})
+    
+
+@login_required
+def item_transactions(request):
+    # seller transactions
+    transactions = Transaction.objects.filter(product__owner=request.user.profile)
+    return render(request, "item_transactions.html", {'transactions': transactions})
+
+
