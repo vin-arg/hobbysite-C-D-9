@@ -8,7 +8,8 @@ class Profile(models.Model):
     email = models.EmailField(max_length=255)
 
     def __str__(self):
-        return '{}'.format(self.name)
+        # return '{}'.format(self.name)
+        return self.name if self.name else self.user.username
     
     def get_absolute_url(self):
         return reverse('profile', args=[str(self.id)])
