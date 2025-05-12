@@ -1,59 +1,82 @@
-{% extends "base.html" %}
+{% extends "bbase.html" %}
+{% load static %}
+
+{% block mycss %}
+<link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+{% endblock %}
+
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block list %}
-<h1>{{ article.title }}</h1>
+<div class="container mt-5">
+    <h1 class="title is-3">{{ article.title }}</h1>
 
-{% if article.header_image %}
-    <img src="{{ article.header_image.url }}" alt="Header Image" style="max-width: 100%; height: auto;">
-{% endif %}
+    {% if article.header_image %}
+        <figure class="image mb-4">
+            <img src="{{ article.header_image.url }}" alt="Header Image">
+        </figure>
+    {% endif %}
 
-<p><strong>Category:</strong> {{ article.category.name }}</p>
-<p><strong>Author:</strong> {{ article.author }}</p>
-<p><em>Created on: {{ article.created_on|date:"Y-m-d H:i" }}</em></p>
+    <p class="has-text-grey mb-3">
+        <strong>Category:</strong> {{ article.category.name }} |
+        <strong>Author:</strong> {{ article.author }} |
+        <strong>Created:</strong> {{ article.created_on|date:"Y-m-d" }}
+    </p>
 
-<div class="entry">
-    {{ article.entry|linebreaks }}
-</div>
-
-{% if user == article.author %}
-    <p><a href="{% url 'wiki:article_edit' article.pk %}">Edit this article</a></p>
-{% endif %}
-
-<hr>
-
-<h2>Read More from {{ article.category.name }}</h2>
-<ul>
-    {% for related in related_articles %}
-        <li><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
-    {% empty %}
-        <li>No other articles in this category.</li>
-    {% endfor %}
-</ul>
-
-<hr>
-
-<h2>Leave a Comment</h2>
-{% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Post Comment</button>
-    </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Login</a> to comment.</p>
-{% endif %}
-
-<h2>Comments</h2>
-{% for comment in comments %}
-    <div class="comment">
-        <p><strong>{{ comment.author }}</strong> ({{ comment.created_on|date:"Y-m-d H:i" }})</p>
-        <p>{{ comment.entry|linebreaks }}</p>
+    <div class="content">
+        {{ article.entry|linebreaks }}
     </div>
-{% empty %}
-    <p>No comments yet.</p>
-{% endfor %}
 
-<hr>
-<a href="{% url 'wiki:articles' %}">← Back to all articles</a>
+    {% if user == article.author %}
+        <p>
+            <a href="{% url 'wiki:article_edit' article.pk %}" class="button is-warning is-light">Edit this article</a>
+        </p>
+    {% endif %}
+
+    {% if gallery_images %}
+        <hr>
+        <h2 class="title is-4">Gallery</h2>
+        <div class="columns is-multiline">
+            {% for img in gallery_images %}
+                {% if img.image %}
+                    <div class="column is-one-quarter">
+                        <figure class="image is-4by3">
+                            <img src="{{ img.image.url }}" alt="{{ img.caption }}">
+                        </figure>
+                        {% if img.caption %}
+                            <p class="has-text-centered is-size-7">{{ img.caption }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr>
+    <h2 class="title is-4">Comments</h2>
+
+    {% if user.is_authenticated %}
+        <form method="post" class="box mb-4">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="button is-primary">Post Comment</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to comment.</p>
+    {% endif %}
+
+    {% for comment in comments %}
+        <div class="box">
+            <p class="is-size-7 has-text-grey">
+                {{ comment.author }} on {{ comment.created_on|date:"Y-m-d H:i" }}
+            </p>
+            <p>{{ comment.entry|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <br>
+    <a href="{% url 'wiki:articles' %}" class="button is-link is-light">← Back to Article List</a>
+</div>
 {% endblock %}

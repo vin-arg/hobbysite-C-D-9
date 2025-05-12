@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import ProductType, Product, Transaction
 
 class ProductTypeAdmin(admin.ModelAdmin):
     model = ProductType
@@ -7,7 +7,7 @@ class ProductTypeAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ['id', 'name', 'product_type', 'price']
+    list_display = ['name', 'product_type', 'price']
 
 class TransactionAdmin(admin.ModelAdmin):
     model = Transaction

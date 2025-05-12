@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Registration Page</title>
 </head>
 <body>
     
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
+        {{ regform.as_p }}
+        <button type="submit">Register</button>
     </form>
 
-    <a href="{% url 'register' %}">Register</a>
-    <a href="{% url 'password_reset' %}">Forgot password?</a>
+    <a href="{% url 'login' %}">Return to Login</a>
 
 </body>
 </html>

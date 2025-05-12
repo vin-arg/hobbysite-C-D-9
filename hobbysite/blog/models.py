@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from user_management.models import Profile
 
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
@@ -14,7 +15,7 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255)
     # author = models.ForeignKey('user_management.Profile', on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="art_cat")
     entry = models.TextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -30,7 +31,7 @@ class Article(models.Model):
 
 class ArticleComment(models.Model):
     # author = models.ForeignKey('user_management.Profile', on_delete=models.CASCADE, null=True, blank=True) # to use if calling unto profile
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     article = models.ForeignKey('Article', on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

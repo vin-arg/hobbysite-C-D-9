@@ -13,11 +13,11 @@
     </header>
 
     <nav>
-        <a href="#">Merchandise</a>
+        <a href="{% url 'item_list' %}">Merchandise</a>
         <a href="{% url 'wiki:articles' %}" class="active">Wiki</a>
-        <a href="#">Blog</a>
-        <a href="#">Forum</a>
-        <a href="#">Commission</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
     </nav>
 
     <div>

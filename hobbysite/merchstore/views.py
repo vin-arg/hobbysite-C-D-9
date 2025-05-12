@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import *
-from .forms import *
+from .models import ProductType, Product, Transaction
+from .forms import TransactionForm, ProductAddForm, ProductUpdateForm
 
 @login_required
 def item_list(request):

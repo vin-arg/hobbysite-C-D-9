@@ -48,7 +48,7 @@ def commission_detail(request, pk):
                     application.job = job
                     application.applicant = request.user.profile
                     application.save()
-        return redirect('commissions:commissions_detail', pk=pk)
+        return redirect('commissions:commission_detail', pk=pk)
 
     total_manpower = sum(job.manpower_required for job in jobs)
     open_manpower = 0
@@ -111,7 +111,7 @@ def commission_create(request):
         form = CommissionForm()
         formset = JobFormSet(queryset=Job.objects.none())
 
-    return render(request, 'commission_form.html', {'form': form,'formset': formset})
+    return render(request, 'commission_form.html', {'commission_form': form,'job_formset': formset})
 
 @login_required
 def commission_update(request, pk):
@@ -138,10 +138,10 @@ def commission_update(request, pk):
         formset = JobFormSet(instance=commission)
     
     ctx = {
-        'form': form,
-        'formset': formset,
-        'commission': commission,
-        'editing': True
+    'commission_form': form,
+    'job_formset': formset,
+    'commission': commission,
+    'editing': True
     }
 
     return render(request, 'commission_form.html', ctx)

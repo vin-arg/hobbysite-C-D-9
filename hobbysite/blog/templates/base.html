@@ -13,10 +13,10 @@
 
     <nav>
         <a href="{% url 'item_list' %}">Merchandise</a>
-        <a href="#">Wiki</a>
+        <a href="{% url 'wiki:articles' %}">Wiki</a>
         <a href="{% url 'article_list' %}" class="active">Blog</a>
-        <a href="#">Forum</a>
-        <a href="#">Commission</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
         <a href="{% url 'home_page' %}">homepage</a>
     </nav>
 
