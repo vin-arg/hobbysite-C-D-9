@@ -1,7 +1,7 @@
 from django.db.models import Case, When, IntegerField, Sum
 from django.shortcuts import render, get_object_or_404
 from .models import Commission, Job, JobApplication
-from .forms import JobApplicationForm
+from .forms import JobApplicationForm, CommissionForm, JobFormSet
 from django.contrib.auth.decorators import login_required
 
 def commission_list(request):
@@ -68,14 +68,27 @@ def commissions_detail(request, pk):
 
 @login_required
 def commission_create(request):
+    form = CommissionForm()
+    
     if request.method == 'POST':
         form = CommissionForm(request.POST)
+        formset = JobFormSet(request.POST, queryset=Job.objects.none())
+
         if form.is_valid():
             commission = form.save(commit=False)
             commission.author = request.user.profile
             commission.save()
-            return redirect('commissions:detail', pk=commission.pk)
+
+            if formset.is_valid():
+                for job_form in formset:
+                    if job_form.cleaned_data:
+                        job = job_form.save(commit=False)
+                        job.commission = commission
+                        job.save()
+
+            return redirect('commissions:commissions_detail', pk=commission.pk)
     else:
         form = CommissionForm()
-    
-    return render(request, 'commissions/commission_form.html', {'form': form})
+        formset = JobFormSet(queryset=Job.objects.none())
+
+    return render(request, 'commission_form.html', {'form': form,'formset': formset})
