@@ -1,13 +1,79 @@
 {% extends "baseTemplate.html" %}
 {% load static %}
-{% block title %} {% endblock %}
+{% block title %}Commissions List{% endblock %}
 
 {% block content %}
-{% for commission in commissions %}
+<div class="commissions-list">
+    {% if user.is_authenticated %}
+        <!-- User's Created Commissions -->
+        <div class="user-commissions">
+            <h2>Your Commissions</h2>
+            {% if user_commissions %}
+                {% for commission in user_commissions %}
+                <div class="commission">
+                    <h3>
+                        <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
+                        <span class="status {{ commission.status|lower }}">{{ commission.get_status_display }}</span>
+                    </h3>
+                    <p>{{ commission.description }}</p>
+                    <div class="meta">
+                        <span>Posted: {{ commission.created_on }}</span>
+                        <span>Last updated: {{ commission.updated_on }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>You haven't created any commissions yet.</p>
+            {% endif %}
+        </div>
 
-<h1><a href = '{{ commission.get_absolute_url }}'>{{ commission.title }}</a></h1>
-<h3>{{ commission.description }}</h3>
-<h6><b>posted</b> {{ commission.created_on }}</h6> <h6><b>last edited</b> {{ commission.updated_on }}</h6>
+        <!-- Commissions User Applied To -->
+        <div class="applied-commissions">
+            <h2>Applied Commissions</h2>
+            {% if applied_commissions %}
+                {% for commission in applied_commissions %}
+                <div class="commission">
+                    <h3>
+                        <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
+                        <span class="status {{ commission.status|lower }}">{{ commission.get_status_display }}</span>
+                    </h3>
+                    <p>{{ commission.description }}</p>
+                    <div class="meta">
+                        <span>Posted: {{ commission.created_on }}</span>
+                        <span>Last updated: {{ commission.updated_on }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>You haven't applied to any commissions yet.</p>
+            {% endif %}
+        </div>
+    {% endif %}
 
-{% endfor %}
+    <!-- All Commissions -->
+    <div class="all-commissions">
+        <h2>All Commissions</h2>
+        {% for commission in commissions %}
+        <div class="commission">
+            <h3>
+                <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
+                <span class="status {{ commission.status|lower }}">{{ commission.get_status_display }}</span>
+            </h3>
+            <p>{{ commission.description }}</p>
+            <div class="meta">
+                <span>Posted: {{ commission.created_on }}</span>
+                <span>Last updated: {{ commission.updated_on }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <p>No commissions available.</p>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="create-link">
+        <a href="{% url 'commissions:create' %}">Create New Commission</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
