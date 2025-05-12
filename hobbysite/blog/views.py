@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 def article_list(request):
     articles = Article.objects.all()
     categories = ArticleCategory.objects.prefetch_related('art_cat').all()
-    return render(request, 'article_list.html', {'articles': articles, 'categories':categories})
+    articles_by_user = Article.objects.filter(author=request.user.profile)
+    return render(request, 'article_list.html', {'articles': articles, 'categories':categories, 'articles_by_user': articles_by_user})
 
 def article_detail(request, num=1):
     article = Article.objects.filter(pk=num).first()
@@ -21,7 +22,6 @@ def article_detail(request, num=1):
             comment.article = article
             if request.user.is_authenticated:
                 comment.author = request.user.profile  # Set the author to the user's profile
-                # comment.author = request.user
             comment.save()
             return redirect('article_detail', num=article.pk)
 
@@ -38,7 +38,6 @@ def article_create(request):
 
         if form.is_valid():
             article = form.save(commit=False)
-            # article.author = request.user.profile
             article.author = request.user.profile
             article.save()
             return redirect('article_list')

@@ -4,8 +4,22 @@
 
 {% block category %}
 
+    <h2>Your Articles</h2>
+    <div class="category_container">
+        
+        {% for article in articles_by_user %}
+            <div class="artlist_cont">
+                <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
+                <a>- {{ article.created_on }}</a>
+            </div>
+        {% empty %}
+            <div>You haven't written any articles yet.</div>
+        {% endfor %}
+    </div>
+
     <h1>Blog Category</h1>
 
+    
     {% for category in categories %}
         <div class="category_container">
             <h2>{{ category.name }}</h2>
