@@ -1,28 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ article.title }}</title>
-</head>
-<body>
-    <h1>{{ article.title }}</h1>
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
 
-    <p><strong>Category:</strong> 
-        {{ article.category.name|default:"None" }}
-    </p>
+{% block list %}
+<h1>{{ article.title }}</h1>
 
-    <p><strong>Created on:</strong> {{ article.created_on|date:"Y-m-d H:i" }}</p>
-    <p><strong>Last updated:</strong> {{ article.updated_on|date:"Y-m-d H:i" }}</p>
+{% if article.header_image %}
+    <img src="{{ article.header_image.url }}" alt="Header Image" style="max-width: 100%; height: auto;">
+{% endif %}
 
-    <hr>
+<p><strong>Category:</strong> {{ article.category.name }}</p>
+<p><strong>Author:</strong> {{ article.author }}</p>
+<p><em>Created on: {{ article.created_on|date:"Y-m-d H:i" }}</em></p>
 
-    <p>{{ article.entry|linebreaks }}</p>
+<div class="entry">
+    {{ article.entry|linebreaks }}
+</div>
 
-    <hr>
+{% if user == article.author %}
+    <p><a href="{% url 'wiki:article_edit' article.pk %}">Edit this article</a></p>
+{% endif %}
 
-    <a href="{% url 'wiki:articles' %}">Back to Articles</a>
+<hr>
 
-    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
-</body>
-</html>
+<h2>Read More from {{ article.category.name }}</h2>
+<ul>
+    {% for related in related_articles %}
+        <li><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
+    {% empty %}
+        <li>No other articles in this category.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h2>Leave a Comment</h2>
+{% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to comment.</p>
+{% endif %}
+
+<h2>Comments</h2>
+{% for comment in comments %}
+    <div class="comment">
+        <p><strong>{{ comment.author }}</strong> ({{ comment.created_on|date:"Y-m-d H:i" }})</p>
+        <p>{{ comment.entry|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+<hr>
+<a href="{% url 'wiki:articles' %}">← Back to all articles</a>
+{% endblock %}

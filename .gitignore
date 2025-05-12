@@ -2,7 +2,6 @@ __pycache__/
 *.pyc
 *.log
 .env
-.sh
 db.sqlite3
-*.sh
 /hobbyEnv
+*.sh

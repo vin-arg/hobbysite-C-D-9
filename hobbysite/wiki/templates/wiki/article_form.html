@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ is_create|yesno:"Create Article,Edit Article" }}{% endblock %}
+
+{% block list %}
+<h1>{{ is_create|yesno:"Create a New Article,Edit Article" }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ is_create|yesno:"Create,Update" }}</button>
+</form>
+
+<a href="{% url 'wiki:articles' %}">← Back to articles</a>
+{% endblock %}
+
