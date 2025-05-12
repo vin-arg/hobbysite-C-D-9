@@ -143,6 +143,7 @@ def commission_update(request, pk):
     'commission': commission,
     'editing': True
     }
+
     return render(request, 'commission_form.html', ctx)
     
 @login_required

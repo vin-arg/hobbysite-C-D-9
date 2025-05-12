@@ -11,3 +11,4 @@ urlpatterns = [
     path('<int:pk>/edit', views.commission_update, name = 'commission_edit'),
     path('jobs/<int:job_id>/', views.job_detail, name='job_detail'),
 ]
+
