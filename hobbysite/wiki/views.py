@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
 from .forms import ArticleForm, CommentForm
 from .models import Article, ArticleCategory
+
 
 @login_required
 def article_create_view(request):
@@ -17,7 +17,11 @@ def article_create_view(request):
     else:
         form = ArticleForm()
 
-    return render(request, "wiki/article_form.html", {"form": form, "is_create": True})
+    return render(
+        request,
+        "wiki/article_form.html",
+        {"form": form, "is_create": True}
+    )
 
 
 @login_required
@@ -35,11 +39,18 @@ def article_update_view(request, pk):
     else:
         form = ArticleForm(instance=article)
 
-    return render(request, "wiki/article_form.html", {"form": form, "is_create": False})
+    return render(
+        request,
+        "wiki/article_form.html",
+        {"form": form, "is_create": False}
+    )
+
 
 def article_list_view(request):
     all_articles = Article.objects.all()
-    categories = ArticleCategory.objects.prefetch_related('articles').all()
+    categories = ArticleCategory.objects.prefetch_related(
+        'articles'
+    ).all()
 
     user_articles = Article.objects.none()
     if request.user.is_authenticated:
@@ -48,19 +59,32 @@ def article_list_view(request):
 
     category_articles = {}
     for category in categories:
-        articles_in_category = category.articles.exclude(author=request.user) if request.user.is_authenticated else category.articles.all()
+        if request.user.is_authenticated:
+            articles_in_category = category.articles.exclude(
+                author=request.user
+            )
+        else:
+            articles_in_category = category.articles.all()
+
         if articles_in_category.exists():
             category_articles[category] = articles_in_category
 
-    return render(request, "wiki/article_list.html", {
-        "user_articles": user_articles,
-        "category_articles": category_articles
-    })
+    return render(
+        request,
+        "wiki/article_list.html",
+        {
+            "user_articles": user_articles,
+            "category_articles": category_articles
+        }
+    )
+
 
 def article_detail_view(request, pk):
     article = get_object_or_404(Article, pk=pk)
     gallery_images = article.gallery_images.all()
-    related_articles = Article.objects.filter(category=article.category).exclude(pk=article.pk)[:2]
+    related_articles = Article.objects.filter(
+        category=article.category
+    ).exclude(pk=article.pk)[:2]
 
     comment_form = None
     if request.user.is_authenticated:
@@ -77,10 +101,14 @@ def article_detail_view(request, pk):
 
     comments = article.comments.all().order_by("-created_on")
 
-    return render(request, "wiki/article_detail.html", {
-        "article": article,
-        "related_articles": related_articles,
-        "comments": comments,
-        "comment_form": comment_form,
-        "gallery_images": gallery_images
-    })
+    return render(
+        request,
+        "wiki/article_detail.html",
+        {
+            "article": article,
+            "related_articles": related_articles,
+            "comments": comments,
+            "comment_form": comment_form,
+            "gallery_images": gallery_images
+        }
+    )
