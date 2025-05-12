@@ -16,7 +16,7 @@
 
         <div class="navbar-brand">
             <a href="{% url 'home_page' %}" class="navbar-item">
-                <h1 class="title">HobbySite</h1>
+                <p class="title">HobbySite</p>
             </a>
         </div>
 
@@ -31,42 +31,56 @@
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="{% url 'item_list' %}">Wiki</a>
+                    <a class="navbar-link" href="{% url 'wiki:articles' %}">Wiki</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="{% url 'wiki:articles' %}">Article List</a>
                         <a class="navbar-item" href="{% url 'wiki:article_create' %}">Write an Article</a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="{% url 'item_list' %}">Blog</a>
+                    <a class="navbar-link" href="{% url 'article_list' %}">Blog</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="{% url 'article_list' %}">Article List</a>
                         <a class="navbar-item" href="{% url 'article_create' %}">Write an Article</a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="{% url 'item_list' %}">Forum</a>
+                    <a class="navbar-link" href="{% url 'forum:thread_list' %}">Forum</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="{% url 'forum:thread_list' %}">Full Thread List</a>
                         <a class="navbar-item" href="{% url 'forum:thread_create' %}">Start a Thread</a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link" href="{% url 'item_list' %}">Commission</a>
+                    <a class="navbar-link" href="{% url 'commissions:commission_list' %}">Commission</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{% url 'commissions:commissions_list' %}">Commissions List</a>
-                        <a class="navbar-item" href="{% url 'commissions:commissions_add' %}">Add a Commission</a>
+                        <a class="navbar-item" href="{% url 'commissions:commission_list' %}">Commissions List</a>
+                        <a class="navbar-item" href="{% url 'commissions:commission_add' %}">Add a Commission</a>
                     </div>
                 </div>
             </div>
             <div class="navbar-end">
-                <a class="navbar-item px-6" href="{% url 'profile' %}">My Profile</a>
+                <a class="navbar-item mx-3 px-3" href="{% url 'profile' %}">
+                    Profile
+                </a>
+                <a class="navbar-item logout mx-3 px-3">
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Logout</button>
+                        </form>
+                </a>
             </div>
         </div>
     </nav>
 
     <div>
-        {% block content %}{% endblock %}
+        {% block category %}{% endblock %}
+    </div>
+
+
+    <div >
+        {% block list %}{% endblock %}
     </div>
 
     <br>

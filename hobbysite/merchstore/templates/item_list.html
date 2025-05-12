@@ -1,93 +1,85 @@
-{% extends 'item_base.html' %}
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} <link rel="stylesheet" href="{% static 'css/merchstore.css' %}"> {% endblock %}
 
 {% load static %}
 
 {% block title %}Product List{% endblock %}
 
-{% block content %}
+{% block list %}
 
+    <div class="section has-text-centered">
+        <span class="tag is-size-1 p-6">
+            Welcome to Our Merch Store!
+        </span>
+    </div>
 
-    <div class="body-content">
-        <div class="welcome">
-            <img src="{% static 'images/merchstore.jpg' %}" alt="Merch Store Header">
-            <h1>Welcome to Our Merch Store!</h1>
-        </div>
-
-        <div class="about-us">
-            <div class="about-us-tag">
-                <h1>About Us</h1>
-            </div>
-            <div class="about-us-content">
-                <p>Good day! We are Group 9 of CSCI 40, from Sir Enzo's Class. We hope you enjoy our Merch Site! :D</p>
-            </div>
-        </div>
-
-
-        <div class="product">
-            <div class="sell-product">
-                <h1 id="product-tag">Your Products</h1>
-
-                {% if sell_product_types %}
-                    <div class="product-list">
-                        {% for sell_product_type in sell_product_types %}
-                            <div class="product-type">
-                                <h2>{{ sell_product_type.name }}</h2>
-                                <p>{{ sell_product_type.description }}</p>
-        
-                                {% if sell_product_type.products.count %}
-                                <ul class="product">
-                                    {% for product in sell_product_type.products.all %}
-                                        {% if product.owner == user.profile %}
-                                            <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-
-                                </ul>
-        
-                                {% else %}
-                                    <p>No products currently being sold.</p>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+    <div class="section">
+        <div class="container">
+            <div class="sell-product message mb-6">
+                <div class="message-header">
+                    <p class="title is-size-3 is-align-content-start">Your Products</p>
+                    <div class="buttons is-align-content-end">
+                        <a href="{% url 'item_add' %}" class="button">Add Item</a>
+                        <a href="{% url 'item_transactions' %}" class="button">Your Transactions</a>
                     </div>
-                    {% else %}
-                    <p>No products available yet.</p>
-                {% endif %}
-
-                <div class="add-item">
-                    <a href="{% url 'item_add' %}">Add Item</a>
                 </div>
-                <div class="your-transactions">
-                    <a href="{% url 'item_transactions' %}">Your Transactions</a>
+                <div class="message-body">
+                    {% if sell_product_types %}
+                        {% for sell_product_type in sell_product_types %}
+                        <div class="box mb-4">
+                            <h2 class="title is-5">{{ sell_product_type.name }}</h2>
+                            <p class="subtitle is-6">{{ sell_product_type.description }}</p>
+                            {% if sell_product_type.products.count %}
+                            <ul>
+                                {% for product in sell_product_type.products.all %}
+                                    {% if product.owner == user.profile %}
+                                        <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>No products currently being sold.</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No products currently being sold.</p>
+                    {% endif %}
                 </div>
             </div>
-            <div class="buy-product">
-                <h1 id="product-tag">Buy Products</h1>
-            
-                <div class="product-list">
+
+            <div class="buy-product message">
+                <div class="message-header">
+                    <p class="title is-size-3 is-align-content-start">Buy Products</p>
+                    <div class="buttons is-align-content-end">
+                        <a href="{% url 'item_cart' %}" class="button is-info">Your Cart</a>
+                    </div>
+                </div>
+                <div class="message-body">
                     {% for buy_product_type in buy_product_types %}
-                        <div class="product-type">
-                            <h2>{{ buy_product_type.name }}</h2>
-                            <p>{{ buy_product_type.description }}</p>
-    
+                        <div class="box mb-4">
+                            <h2 class="title is-5">{{ buy_product_type.name }}</h2>
+                            <p class="subtitle is-6">{{ buy_product_type.description }}</p>
+
                             {% if buy_product_type.products.count %}
-                            <ul class="product">
+                            <ul>
                                 {% for product in buy_product_type.products.all %}
                                     <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
                                 {% endfor %}
                             </ul>
-    
                             {% else %}
                                 <p>No products available yet.</p>
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <div class="add-item">
-                        <a href="{% url 'item_cart' %}">Your Cart</a>
-                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 
+    
 {% endblock %}

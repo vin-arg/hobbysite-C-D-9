@@ -17,7 +17,7 @@ class CommentForm(forms.ModelForm):
                 attrs={
                     "rows": 3,
                     "placeholder": (
-                        "Say something nice. Please. I can't handle it."
+                        "Leave a comment? Share your thoughts!"
                     )
                 }
             )

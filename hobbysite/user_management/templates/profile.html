@@ -1,11 +1,8 @@
 {% extends 'bbase.html' %}
 
 {% load static %}
-{% block mycss %}
-<link rel="stylesheet" href="{% static 'css/merchstore.css' %}">
-{% endblock %}
 
-{% block title %}Add a Product{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% block list %}
 <div class="section">
@@ -13,17 +10,17 @@
 
         <div class="message">
             <div class="message-header">
-                <p>Edit Product: {{ product.name }}</p>
+                <p>Edit Profile: {{ product.name }}</p>
             </div>
             <div class="message-body">
                 <form method="POST">
                     {% csrf_token %}
                     <div class="box">
-                        {{ add_form.as_p }}
+                        {{ profile_form.as_p }}
                     </div>
                     <div class="buttons mt-4">
                         <button type="submit" class="button is-success">Save Changes</button>
-                        <a href="{% url 'item_list' %}" class="button is-light">Cancel</a>
+                        <a href="{% url 'home_page' %}" class="button is-light">Cancel</a>
                     </div>
                 </form>
             </div>

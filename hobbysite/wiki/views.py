@@ -20,7 +20,7 @@ def article_create_view(request):
     return render(
         request,
         "wiki/article_form.html",
-        {"form": form, "is_create": True}
+        {"article_form": form, "is_create": True}
     )
 
 
@@ -42,7 +42,7 @@ def article_update_view(request, pk):
     return render(
         request,
         "wiki/article_form.html",
-        {"form": form, "is_create": False}
+        {"article_form": form, "is_create": False}
     )
 
 

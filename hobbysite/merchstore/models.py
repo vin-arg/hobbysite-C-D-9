@@ -47,13 +47,13 @@ class Transaction(models.Model):
     amount = models.PositiveIntegerField(default=0)
 
     status_choices = {
-        "CAR": "On Cart",
-        "PAY": "To Pay",
-        "SHI": "To Ship",
-        "REC": "To Receive",
-        "DEL": "Delivered",
+        "On Cart": "On Cart",
+        "To Pay": "To Pay",
+        "To Ship": "To Ship",
+        "To Receive": "To Receive",
+        "Delivered": "Delivered",
     }
-    status = models.CharField(choices=status_choices, max_length=3, default="CAR")
+    status = models.CharField(choices=status_choices, max_length=10, default="On Cart")
 
     created_on = models.DateTimeField(auto_now_add=True)
 

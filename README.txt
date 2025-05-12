@@ -1,7 +1,7 @@
 hobbysite-C-D-9
 Group members: 
-Almojuela, Mikhyla Felicia 
-Arguelles, Vince Ashanti 
-Sapitula, Nathan Vincent 
-Tan, Jacob 
-Tormon, David Dylan
+Almojuela, Mikhyla Felicia - Forum
+Arguelles, Vince Ashanti - Blog
+Sapitula, Nathan Vincent - Merchstore
+Tan, Jacob - Wiki
+Tormon, David Dylan - Commission

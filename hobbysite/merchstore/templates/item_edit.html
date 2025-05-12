@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'css/merchstore.css' %}">
 {% endblock %}
 
-{% block title %}Add a Product{% endblock %}
+{% block title %}Edit {{ product.name }}{% endblock %}
 
 {% block list %}
 <div class="section">
@@ -19,7 +19,7 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="box">
-                        {{ add_form.as_p }}
+                        {{ edit_form.as_p }}
                     </div>
                     <div class="buttons mt-4">
                         <button type="submit" class="button is-success">Save Changes</button>

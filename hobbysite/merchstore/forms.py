@@ -1,5 +1,5 @@
 from django import forms
-from .models import *
+from .models import Transaction, Product
 
 class TransactionForm(forms.ModelForm):
     class Meta:

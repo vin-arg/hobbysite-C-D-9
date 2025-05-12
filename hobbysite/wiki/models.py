@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -87,7 +86,7 @@ class ArticleImage(models.Model):
         on_delete=models.CASCADE,
         related_name="gallery_images"
     )
-    image = models.ImageField(upload_to="article_gallery/")
+    image = models.ImageField(upload_to='article_gallery/')
     caption = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
