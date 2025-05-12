@@ -29,9 +29,38 @@ def commission_list(request):
     return render(request, 'commission_list.html', ctx)
 
 def commissions_detail(request, pk):
-    commission_info = Commission.objects.get(pk=pk)
+    commission = get_object_or_404(Commission, pk=pk)
+    
+    # Calculate manpower statistics
+    total_manpower = commission.jobs.aggregate(
+        total=Sum('manpower_required')
+    )['total'] or 0
+    
+    accepted_applications = JobApplication.objects.filter(
+        job__commission=commission,
+        status='Accepted'
+    ).count()
+    
+    jobs = []
+    for job in commission.jobs.all():
+        accepted_count = job.applications.filter(status='Accepted').count()
+        jobs.append({
+            'object': job,
+            'can_apply': (
+                request.user.is_authenticated and 
+                not request.user.profile == commission.author and
+                accepted_count < job.manpower_required
+            ),
+            'remaining_positions': job.manpower_required - accepted_count,
+            'form': JobApplicationForm(initial={'job': job.id}) if request.user.is_authenticated else None
+        })
+    
     ctx = {
-        'comments': commission_info.comments.all(),
-        'commission': commission_info
+        'commission': commission,
+        'jobs': jobs,
+        'total_manpower': total_manpower,
+        'open_manpower': total_manpower - accepted_applications,
+        'can_edit': request.user.is_authenticated and request.user.profile == commission.author
     }
-    return render(request, 'commission_comments.html', ctx)
+    
+    return render(request, 'commissions/commission_detail.html', ctx)
