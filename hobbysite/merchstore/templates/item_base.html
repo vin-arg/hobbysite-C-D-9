@@ -17,6 +17,13 @@
         <a href="#">Forum</a>
         <a href="#">Commission</a>
     </div>
+    <div class="logout">
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
     {% block content %}
         
     {% endblock %}
