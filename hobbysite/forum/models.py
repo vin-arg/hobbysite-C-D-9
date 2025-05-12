@@ -1,29 +1,45 @@
 from django.db import models
+from user_management.models import Profile 
 
-# Create your models here.
-
-class PostCategory(models.Model):
+class ThreadCategory(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
-
-    def __str__(self):
-        return self.name
 
     #sort by name
     class Meta:
         ordering = ['name']
-        verbose_name_plural = "Post Categories"
+        verbose_name_plural = "Thread Categories"
+
+    def __str__(self):
+        return self.name
     
-class Post(models.Model):
+class Thread(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, null=True, blank=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(ThreadCategory, null=True, blank=True, on_delete=models.SET_NULL)
     entry = models.TextField()
+    image = models.ImageField(upload_to='images/', null=True, blank=True) 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    #sort by date
+    #sort by descending date
     class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True) 
+    updated_on = models.DateTimeField(auto_now=True) 
+
+    #sort by ascending date
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return f"comment by {self.author} on {self.thread}"
