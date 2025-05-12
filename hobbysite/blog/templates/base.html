@@ -14,9 +14,10 @@
     <nav>
         <a href="{% url 'item_list' %}">Merchandise</a>
         <a href="#">Wiki</a>
-        <a href="{% url 'article_list' %}">Blog</a>
-        <a href="{% url 'forum:thread_list' %}">Forum</a> <!-- temporary fix by chatgpt -->
+        <a href="{% url 'article_list' %}" class="active">Blog</a>
+        <a href="#">Forum</a>
         <a href="#">Commission</a>
+        <a href="{% url 'home_page' %}">homepage</a>
     </nav>
 
     <div>
@@ -27,6 +28,10 @@
     <div >
         {% block list %}{% endblock %}
     </div>
+
+    <br>
+    <br>
+    <br>
 
     <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
 

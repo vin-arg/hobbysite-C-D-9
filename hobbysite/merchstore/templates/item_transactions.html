@@ -1,0 +1,35 @@
+{% extends 'item_base.html' %}
+
+{% block title %}Your Transactions{% endblock %}
+
+{% block content %}
+
+{% comment %} The transactions should be categorized by the Product’s owner, similar in layout to the Product List View {% endcomment %}
+
+    <div class="transaction-content">
+        <h1>Your Transactions</h1>
+        
+        {% if transactions %}
+            <ul class="transaction-items-list">
+                {% for transaction in transactions %}
+                    <li>
+                        <h3>{{ transaction.product.name }} bought by {{ transaction.buyer }}</h3>
+                        <p>{{ transaction.product.description }}</p>
+                        <p>Price: PHP {{ transaction.product.price }}</p>
+                        <p>Quantity: {{ transaction.amount }}</p>
+                {% endfor %}
+            </ul>
+
+            {% comment %} <div class="checkout">
+                <a href="{% url 'checkout' %}">Proceed to Checkout</a>
+            </div> {% endcomment %}
+        {% else %}
+            <p>Your transactions are empty.</p>
+        {% endif %}
+        
+        <div>
+            <a href="{% url 'item_list' %}">Back to Product List</a>
+        </div>
+    </div>
+
+{% endblock %}

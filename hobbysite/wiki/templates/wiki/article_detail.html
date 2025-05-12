@@ -57,18 +57,3 @@
 <hr>
 <a href="{% url 'wiki:articles' %}">← Back to all articles</a>
 {% endblock %}
-
-{% if gallery_images %}
-    <hr>
-    <h2>Image Gallery</h2>
-    <div class="gallery">
-        {% for img in gallery_images %}
-            <div class="gallery-item">
-                <img src="{{ img.image.url }}" alt="{{ img.caption }}" style="max-width: 100%; height: auto;">
-                {% if img.caption %}
-                    <p>{{ img.caption }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
