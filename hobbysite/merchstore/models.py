@@ -35,7 +35,7 @@ class Product(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return self.name
     
     def get_absolute_url(self):
         return reverse('product', args=[str(self.id)])
@@ -56,3 +56,8 @@ class Transaction(models.Model):
     status = models.CharField(choices=status_choices, max_length=3, default="CAR")
 
     created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        product_name = self.product.name if self.product else "Unknown Product"
+        buyer_name = self.buyer.name if self.buyer else "Unknown Buyer"
+        return f'{self.amount} x {product_name} - {buyer_name}'

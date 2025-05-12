@@ -7,7 +7,7 @@ class ProductTypeAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ['id', 'name', 'product_type', 'price']
+    list_display = ['name', 'product_type', 'price']
 
 class TransactionAdmin(admin.ModelAdmin):
     model = Transaction
