@@ -5,6 +5,3 @@ urlpatterns = [
     path('home/', home_page, name="home_page")
     # path("profile", profile, name="profile"),
 ]
-
-
-print("user_management urls loaded")
