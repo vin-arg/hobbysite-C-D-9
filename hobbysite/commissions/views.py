@@ -1,3 +1,4 @@
+from django.db.models import Case, When, IntegerField
 from django.shortcuts import render
 from .models import Commission
 
@@ -19,9 +20,7 @@ def commissions_list(request):
     if request.user.is_authenticated:
         profile = request.user.profile
         ctx.update({
-            # User's commissions also newest first
             'user_commissions': profile.commissions.all().order_by('-created_on'),
-            # Applied commissions newest first
             'applied_commissions': Commission.objects.filter(
                 jobs__applications__applicant=profile
             ).distinct().order_by('-created_on')
