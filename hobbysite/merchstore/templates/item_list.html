@@ -24,28 +24,68 @@
 
 
         <div class="product">
-            <h1 id="product-tag">Products</h1>
-            <div class="add-item">
-                <a href="{% url 'item_add' %}">Add Item</a>
-            </div>
-            <div class="product-list">
-                {% for product_type in product_types %}
-                    <div class="product-type">
-                        <h2>{{ product_type.name }}</h2>
-                        <p>{{ product_type.description }}</p>
+            <div class="sell-product">
+                <h1 id="product-tag">Your Products</h1>
 
-                        {% if product_type.products.all %}
-                        <ul class="product">
-                            {% for product in product_type.products.all %}
-                                <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
-                            {% endfor %}
-                        </ul>
+                {% if sell_product_types %}
+                    <div class="product-list">
+                        {% for sell_product_type in sell_product_types %}
+                            <div class="product-type">
+                                <h2>{{ sell_product_type.name }}</h2>
+                                <p>{{ sell_product_type.description }}</p>
+        
+                                {% if sell_product_type.products.count %}
+                                <ul class="product">
+                                    {% for product in sell_product_type.products.all %}
+                                        {% if product.owner == user.profile %}
+                                            <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
 
-                        {% else %}
-                            <p>No products available yet.</p>
-                        {% endif %}
+                                </ul>
+        
+                                {% else %}
+                                    <p>No products currently being sold.</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
-                {% endfor %}
+                    {% else %}
+                    <p>No products available yet.</p>
+                {% endif %}
+
+                <div class="add-item">
+                    <a href="{% url 'item_add' %}">Add Item</a>
+                </div>
+                <div class="your-transactions">
+                    <a href="{% url 'item_transactions' %}">Your Transactions</a>
+                </div>
+            </div>
+            <div class="buy-product">
+                <h1 id="product-tag">Buy Products</h1>
+            
+                <div class="product-list">
+                    {% for buy_product_type in buy_product_types %}
+                        <div class="product-type">
+                            <h2>{{ buy_product_type.name }}</h2>
+                            <p>{{ buy_product_type.description }}</p>
+    
+                            {% if buy_product_type.products.count %}
+                            <ul class="product">
+                                {% for product in buy_product_type.products.all %}
+                                    <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+    
+                            {% else %}
+                                <p>No products available yet.</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="add-item">
+                        <a href="{% url 'item_cart' %}">Your Cart</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

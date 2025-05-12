@@ -6,9 +6,10 @@
 
 
     <div class="entry">
-        <h2>{{ product.name }}</h2>
+        <h2>{{ product.name }} - from {{ product.owner }}</h2>
         <h3>PHP {{ product.price }}</h3>
         <div class="entry-content">
+            <p>Stock: {{ product.stock }}</p>
             <p>{{ product.description }}</p>
             <div class="back-to-home">
                 <a href="{% url 'item_list' %}">Back to Home</a>
@@ -17,7 +18,14 @@
                 {% if product.owner == user.profile %}
                     <a href="{% url 'item_edit' product.id %}">Edit Product</a>
                 {% else %}
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ transaction_form.as_p }}
+                    <button type="submit">Add to Cart</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </div>
+
 {% endblock %}

@@ -40,6 +40,7 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product', args=[str(self.id)])
     
+
 class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
