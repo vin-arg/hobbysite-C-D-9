@@ -2,6 +2,7 @@ from django.db.models import Case, When, IntegerField, Sum
 from django.shortcuts import render, get_object_or_404
 from .models import Commission, Job, JobApplication
 from .forms import JobApplicationForm
+from django.contrib.auth.decorators import login_required
 
 def commission_list(request):
     commissions = Commission.objects.order_by(
@@ -64,3 +65,17 @@ def commissions_detail(request, pk):
     }
     
     return render(request, 'commissions/commission_detail.html', ctx)
+
+@login_required
+def commission_create(request):
+    if request.method == 'POST':
+        form = CommissionForm(request.POST)
+        if form.is_valid():
+            commission = form.save(commit=False)
+            commission.author = request.user.profile
+            commission.save()
+            return redirect('commissions:detail', pk=commission.pk)
+    else:
+        form = CommissionForm()
+    
+    return render(request, 'commissions/commission_form.html', {'form': form})
