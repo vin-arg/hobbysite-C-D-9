@@ -20,7 +20,8 @@ def article_detail(request, num=1):
 
             comment.article = article
             if request.user.is_authenticated:
-                comment.author = request.user.profile  # Set the author to the user's profile
+                # comment.author = request.user.profile  # Set the author to the user's profile
+                comment.author = request.user
             comment.save()
             return redirect('article_detail', num=article.pk)
 
@@ -37,6 +38,7 @@ def article_create(request):
 
         if form.is_valid():
             article = form.save(commit=False)
+            # article.author = request.user.profile
             article.author = request.user.profile
             article.save()
             return redirect('article_list')

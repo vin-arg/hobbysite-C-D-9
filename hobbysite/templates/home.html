@@ -13,7 +13,7 @@
 
     <h1 id="site-name">HobbySite</h1>
     <div class="navbar">
-        <a href="#">Merchandise</a>
+        <a href="{% url 'item_list' %}">Merchandise</a>
         <a href="#">Wiki</a>
         <a href="{% url 'article_list' %}">Blog</a>
         <a href="#">Forum</a>
@@ -21,11 +21,14 @@
     </div>
     
     <div class="logout">
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Logout</button>
-        </form>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
     </div>
 </body>
 </html>
