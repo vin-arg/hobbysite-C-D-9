@@ -8,7 +8,7 @@
         <ul>
             {% for thread in user_threads %}
                 <li>
-                    <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a><br>
+                    <a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a><br>
                     <small>Created on: {{ thread.created_on|date:"Y-m-d H:i" }}</small> | 
                     <small>Last updated: {{ thread.updated_on|date:"Y-m-d H:i" }}</small>
                 </li>
@@ -26,7 +26,7 @@
             <ul>
                 {% for thread in threads %}
                     <li>
-                        <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a><br>
+                        <a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a><br>
                         <small>Created on: {{ thread.created_on|date:"Y-m-d H:i" }}</small> | 
                         <small>Last updated: {{ thread.updated_on|date:"Y-m-d H:i" }}</small>
                     </li>
