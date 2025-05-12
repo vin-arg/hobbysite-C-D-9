@@ -32,36 +32,56 @@ def commission_list(request):
 
 def commission_detail(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
+    jobs = Job.objects.filter(commission=commission)
     
-    total_manpower = commission.jobs.aggregate(
-        total=Sum('manpower_required')
-    )['total'] or 0
+    if request.method == 'POST' and request.user.is_authenticated:
+        job_id = request.POST.get('job')
+        job = get_object_or_404(Job, id=job_id)
+
+        accepted_count = JobApplication.objects.filter(job=job, status='Accepted').count()
+        if accepted_count < job.manpower_required:
+            already_applied = JobApplication.objects.filter(job=job, applicant=request.user.profile).exists()
+            if not already_applied:
+                form = JobApplicationForm(request.POST)
+                if form.is_valid():
+                    application = form.save(commit=False)
+                    application.job = job
+                    application.applicant = request.user.profile
+                    application.save()
+        return redirect('commissions:commissions_detail', pk=pk)
+
+    total_manpower = sum(job.manpower_required for job in jobs)
+    open_manpower = 0
+    job_data = []
     
-    accepted_applications = JobApplication.objects.filter(
-        job__commission=commission,
-        status='Accepted'
-    ).count()
     
-    jobs = []
-    for job in commission.jobs.all():
-        accepted_count = job.applications.filter(status='Accepted').count()
-        jobs.append({
+    for job in jobs:
+        accepted_count = JobApplication.objects.filter(job=job, status='Accepted').count()
+        remaining = job.manpower_required - accepted_count
+        open_manpower += remaining
+
+        can_apply = (
+            request.user.is_authenticated and
+            remaining > 0 and
+            not JobApplication.objects.filter(job=job, applicant=request.user.profile).exists()
+        )
+
+        job_data.append({
             'object': job,
-            'can_apply': (
-                request.user.is_authenticated and 
-                not request.user.profile == commission.author and
-                accepted_count < job.manpower_required
-            ),
-            'remaining_positions': job.manpower_required - accepted_count,
-            'form': JobApplicationForm(initial={'job': job.id}) if request.user.is_authenticated else None
+            'remaining_positions': remaining,
+            'can_apply': can_apply,
+            'form': JobApplicationForm(initial={'status': 'Pending'}) if can_apply else None,
         })
+
+    can_edit = request.user.is_authenticated and commission.author == request.user.profile
+
     
     ctx = {
         'commission': commission,
         'jobs': jobs,
         'total_manpower': total_manpower,
-        'open_manpower': total_manpower - accepted_applications,
-        'can_edit': request.user.is_authenticated and request.user.profile == commission.author
+        'open_manpower': total_manpower - open_manpower,
+        'can_edit': can_edit
     }
     
     return render(request, 'commission_detail.html', ctx)
@@ -86,7 +106,7 @@ def commission_create(request):
                         job.commission = commission
                         job.save()
 
-            return redirect('commissions:commissions_detail', pk=commission.pk)
+            return redirect('commissions:commission_detail', pk=commission.pk)
     else:
         form = CommissionForm()
         formset = JobFormSet(queryset=Job.objects.none())
@@ -98,7 +118,7 @@ def commission_update(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
     
     if commission.author != request.user.profile:
-        return redirect('commissions:commissions_list')
+        return redirect('commissions:commission_list')
     
     if request.method == 'POST':
         form = CommissionForm(request.POST, instance=commission)
@@ -112,7 +132,7 @@ def commission_update(request, pk):
                 commission.status = 'Full'
                 commission.save()
 
-            return redirect('commissions:commissions_detail', pk=commission.pk)
+            return redirect('commissions:commission_detail', pk=commission.pk)
     else:
         form = CommissionForm(instance=commission)
         formset = JobFormSet(instance=commission)
@@ -146,4 +166,4 @@ def job_detail(request, job_id):
            'applications': applications,
            'is_owner': is_owner,}
 
-    return render(request, 'commissions:job_detail.html', ctx)
+    return render(request, 'job_detail.html', ctx)
