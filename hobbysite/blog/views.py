@@ -20,8 +20,8 @@ def article_detail(request, num=1):
 
             comment.article = article
             if request.user.is_authenticated:
-                # comment.author = request.user.profile  # Set the author to the user's profile
-                comment.author = request.user
+                comment.author = request.user.profile  # Set the author to the user's profile
+                # comment.author = request.user
             comment.save()
             return redirect('article_detail', num=article.pk)
 
