@@ -98,38 +98,52 @@ def commission_update(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
     
     if commission.author != request.user.profile:
-        return redirect('commissions:list')
+        return redirect('commissions:commissions_list')
     
     if request.method == 'POST':
         form = CommissionForm(request.POST, instance=commission)
-        formset = JobFormSet(request.POST, queryset=Job.objects.filter(commission=commission))
+        formset = JobFormSet(request.POST, instance=commission)
 
-        if all([form.is_valid(), formset.is_valid()]):
+        if form.is_valid() and formset.is_valid():
             commission = form.save()
-
-            for job_form in formset:
-                if job_form.cleaned_data:
-                    job = job_form.save(commit=False)
-                    job.commission = commission
-                    job.save()
-                elif job_form.cleaned_data.get('DELETE'):
-                    job_form.instance.delete()
+            formset.save()
 
             if commission.jobs.exclude(status='Full').count() == 0:
                 commission.status = 'Full'
                 commission.save()
 
-            return redirect('commissions:detail', pk=commission.pk)
+            return redirect('commissions:commissions_detail', pk=commission.pk)
     else:
         form = CommissionForm(instance=commission)
-        formset = JobFormSet(
-            queryset=Job.objects.filter(commission=commission),
-            prefix='jobs'
-        )
-
-    return render(request, 'commission_form.html', {
+        formset = JobFormSet(instance=commission)
+    
+    ctx = {
         'form': form,
         'formset': formset,
         'commission': commission,
         'editing': True
-    })
+    }
+
+    return render(request, 'commission_form.html', ctx)
+    
+@login_required
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    applications = JobApplication.objects.filter(job=job).select_related('applicant')
+
+    is_owner = job.commission.author == request.user.profile
+
+    if request.method == 'POST' and is_owner:
+        for application in applications:
+            status_key = f'status_{application.id}'
+            new_status = request.POST.get(status_key)
+            if new_status and new_status != application.status:
+                application.status = new_status
+                application.save()
+        return redirect('commissions:job_detail', job_id=job.id)
+    
+    ctx = {'job': job,
+           'applications': applications,
+           'is_owner': is_owner,}
+
+    return render(request, 'commissions:job_detail.html', ctx)
