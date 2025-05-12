@@ -9,18 +9,18 @@
         <span class="status {{ commission.status|lower }}">{{ commission.get_status_display }}</span>
         <span>Created: {{ commission.created_on|date:"M d, Y" }}</span>
         {% if can_edit %}
-        <a href="{% url 'commissions:commissions_edit' pk=commission.pk %}" class="edit-link">Edit</a>
+        <a href="{% url 'commissions:commission_edit' pk=commission.pk %}" class="edit-link">Edit</a>
         {% endif %}
     </div>
-    
+
     <p>{{ commission.description }}</p>
-    
+
     <div class="manpower-stats">
         <h3>Manpower Summary</h3>
         <p>Total Required: {{ total_manpower }}</p>
         <p>Open Positions: {{ open_manpower }}</p>
     </div>
-    
+
     <h2>Available Jobs</h2>
     <div class="job-list">
         {% for job in jobs %}
@@ -28,11 +28,12 @@
             <h3>{{ job.object.role }}</h3>
             <p>Required: {{ job.object.manpower_required }}</p>
             <p>Open Positions: {{ job.remaining_positions }}</p>
-            
+
             {% if job.can_apply %}
-            <form method="post" action="{% url 'commissions:apply' %}">
+            <form method="post" action="{% url 'commissions:commission_detail' pk=commission.pk %}">
                 {% csrf_token %}
                 {{ job.form }}
+                <input type="hidden" name="job_id" value="{{ job.object.id }}">
                 <button type="submit">Apply to this Job</button>
             </form>
             {% elif job.remaining_positions <= 0 %}

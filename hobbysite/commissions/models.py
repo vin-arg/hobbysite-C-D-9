@@ -19,7 +19,7 @@ class Commission(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
-        return reverse('commissions:commissions_detail', args=[self.pk])
+        return reverse('commissions:commission_detail', args=[self.pk])
     
     def __str__(self):
         return self.title
