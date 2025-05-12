@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/merchstore.css' %}">
+
+</head>
+<body>
+
+    <h1 id="site-name">HobbySite</h1>
+    <div class="navbar">
+        <a href="{% url 'item_list' %}">Merchandise</a>
+        <a href="#">Wiki</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="#">Forum</a>
+        <a href="#">Commission</a>
+    </div>
+    
+    <div class="logout">
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+</body>
+</html>
