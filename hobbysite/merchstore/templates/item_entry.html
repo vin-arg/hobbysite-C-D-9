@@ -13,6 +13,11 @@
             <div class="back-to-home">
                 <a href="{% url 'item_list' %}">Back to Home</a>
             </div>
+            <div class="back-to-home">
+                {% if product.owner == user.profile %}
+                    <a href="{% url 'item_edit' product.id %}">Edit Product</a>
+                {% else %}
+            </div>
         </div>
     </div>
 {% endblock %}

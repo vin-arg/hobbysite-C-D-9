@@ -27,3 +27,14 @@ def item_add(request):
             product.save()
             return redirect('item_list')
     return render(request, "item_add.html", {'add_form': form})
+
+@login_required
+def item_edit(request, num=1):
+    product = Product.objects.get(id=num)
+    form = ProductUpdateForm(instance=product)
+    if request.method == 'POST':
+        form = ProductUpdateForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('item_entry', num)
+    return render(request, 'item_edit.html', {'edit_form': form, 'product': product})

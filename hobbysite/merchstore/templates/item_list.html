@@ -25,6 +25,9 @@
 
         <div class="product">
             <h1 id="product-tag">Products</h1>
+            <div class="add-item">
+                <a href="{% url 'item_add' %}">Add Item</a>
+            </div>
             <div class="product-list">
                 {% for product_type in product_types %}
                     <div class="product-type">
