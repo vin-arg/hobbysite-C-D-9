@@ -1,0 +1,20 @@
+{% extends 'item_base.html' %}
+
+{% block title %}Edit {{ product.name }}{% endblock %}
+
+{% block content %}
+
+
+    <div class="edit-entry">
+        <h2>Add Product</h2>
+        <div class="add-content">
+            <form method="POST">
+                {% csrf_token %}
+                {{ add_form.as_p }}
+                <button type="submit">Add</button>
+            </form>
+            <a href="{% url 'item_list' %}">Cancel</a>
+        </div>
+    </div>
+
+{% endblock %}

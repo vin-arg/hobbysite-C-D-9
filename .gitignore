@@ -5,3 +5,4 @@ __pycache__/
 .sh
 db.sqlite3
 *.sh
+/hobbyEnv
