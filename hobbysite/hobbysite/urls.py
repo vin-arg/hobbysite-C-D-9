@@ -22,5 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('merchstore/', include('merchstore.urls')),
     path('blog/', include('blog.urls')),
-    path('wiki/', include('wiki.urls'))
+    path('forum/', include('forum.urls')),
+    path('wiki/', include('wiki.urls', namespace='wiki')),
+    path('', lambda request: redirect('wiki:articles')), #temporary fix by chatgpt
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -1,7 +1,15 @@
 from django import forms
-from .models import Article
+from .models import Article, Comment
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ["title", "category", "entry"]
+        exclude = ["author", "created_on", "updated_on"]
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["entry"]
+        widgets = {
+            "entry": forms.Textarea(attrs={"rows": 3, "placeholder": "Say something nice. Please. I can't handle it."})
+        }

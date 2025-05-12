@@ -3,59 +3,41 @@
 {% block title %}Wiki{% endblock %}
 
 {% block category %}
-
-<h1>Wiki Categories</h1>
-
-<div>
-    {% if user.is_authenticated %}
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="nav-link">Logout</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+{% if user.is_authenticated %}
+<h2>Your Articles</h2>
+<div class="article_list">
+    {% for article in user_articles %}
+        <div class="artlist_cont">
+            <a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a>
+        </div>
+    {% empty %}
+        <p>You haven't written any articles yet.</p>
+    {% endfor %}
 </div>
+{% endif %}
+{% endblock %}
 
-{% for category in articlecategories %}
+{% block list %}
+<h2>All Articles by Category</h2>
+{% for category, articles in category_articles.items %}
     <div class="category_container">
-        <h2>{{ category.name }}</h2>
-        <p>{{ category.description }}</p>
-        
-        <div class="article_list">  
-            {% for article in category.articles.all %}
+        <h3>{{ category.name }}</h3>
+        <div class="article_list">
+            {% for article in articles %}
                 <div class="artlist_cont">
-                    {{ article.title }}
-                    <a href="{% url 'wiki:article_detail' article.pk %}" class="button">Go to Page</a>
+                    <a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a>
                 </div>
-            {% empty %}
-                <div class="artlist_cont">No articles in this category.</div>
             {% endfor %}
         </div>
     </div>
 {% empty %}
-    <div>No categories available</div>
+    <p>No articles available.</p>
 {% endfor %}
 
-{% endblock %}
-
-{% block list %}
-
-<h2>All Wiki Articles</h2>
-
-<div class="article_list">
-    {% for article in articles %}
-        <div class="artlist_cont">
-            <a href="{% url 'wiki:article_detail' article.pk %}">{{ article.title }}</a>
-            <span>- {{ article.created_on|date:"Y-m-d" }}</span>
-        </div>
-    {% empty %}
-        <div>No articles available</div>
-    {% endfor %}
-</div>
-
 <br>
-
-<a href="{% url 'wiki:article_create' %}" class="button">Add Article</a>
-
+{% if user.is_authenticated %}
+    <a href="{% url 'wiki:article_create' %}" class="button">Add Article</a>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to add an article.</p>
+{% endif %}
 {% endblock %}
