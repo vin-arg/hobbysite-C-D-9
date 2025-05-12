@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from user_management import Profile
+from user_management.models import Profile
 
 class Commission(models.Model):
     

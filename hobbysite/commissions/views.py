@@ -102,7 +102,7 @@ def commission_update(request, pk):
     
     if request.method == 'POST':
         form = CommissionForm(request.POST, instance=commission)
-        formset = JobFormSet(request.POST, queryset=Job.objects.filter(commission=commission),prefix='jobs')
+        formset = JobFormSet(request.POST, queryset=Job.objects.filter(commission=commission))
 
         if all([form.is_valid(), formset.is_valid()]):
             commission = form.save()
