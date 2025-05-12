@@ -27,7 +27,7 @@ def commission_list(request):
             ).distinct().order_by('-created_on')
         })
         
-    return render(request, 'commission_list.html', ctx)
+    return render(request, 'commissions/commission_list.html', ctx)
 
 def commissions_detail(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
