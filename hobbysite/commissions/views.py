@@ -26,7 +26,7 @@ def commissions_list(request):
             ).distinct().order_by('-created_on')
         })
         
-    return render(request, 'commission_content.html', ctx,)
+    return render(request, 'commission_content.html', ctx)
 
 def commissions_detail(request, pk):
     commission_info = Commission.objects.get(pk=pk)
@@ -34,4 +34,4 @@ def commissions_detail(request, pk):
         'comments': commission_info.comments.all(),
         'commission': commission_info
     }
-    return render(request, 'commission_comments.html', ctx,)
+    return render(request, 'commission_comments.html', ctx)
