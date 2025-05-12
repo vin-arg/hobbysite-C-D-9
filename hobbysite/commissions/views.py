@@ -1,6 +1,7 @@
-from django.db.models import Case, When, IntegerField
-from django.shortcuts import render
-from .models import Commission
+from django.db.models import Case, When, IntegerField, Sum
+from django.shortcuts import render, get_object_or_404
+from .models import Commission, Job, JobApplication
+from .forms import JobApplicationForm
 
 def commission_list(request):
     commissions = Commission.objects.order_by(
@@ -31,7 +32,6 @@ def commission_list(request):
 def commissions_detail(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
     
-    # Calculate manpower statistics
     total_manpower = commission.jobs.aggregate(
         total=Sum('manpower_required')
     )['total'] or 0
