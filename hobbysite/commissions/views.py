@@ -92,3 +92,44 @@ def commission_create(request):
         formset = JobFormSet(queryset=Job.objects.none())
 
     return render(request, 'commission_form.html', {'form': form,'formset': formset})
+
+@login_required
+def commission_update(request, pk):
+    commission = get_object_or_404(Commission, pk=pk)
+    
+    if commission.author != request.user.profile:
+        return redirect('commissions:list')
+    
+    if request.method == 'POST':
+        form = CommissionForm(request.POST, instance=commission)
+        formset = JobFormSet(request.POST, queryset=Job.objects.filter(commission=commission),prefix='jobs')
+
+        if all([form.is_valid(), formset.is_valid()]):
+            commission = form.save()
+
+            for job_form in formset:
+                if job_form.cleaned_data:
+                    job = job_form.save(commit=False)
+                    job.commission = commission
+                    job.save()
+                elif job_form.cleaned_data.get('DELETE'):
+                    job_form.instance.delete()
+
+            if commission.jobs.exclude(status='Full').count() == 0:
+                commission.status = 'Full'
+                commission.save()
+
+            return redirect('commissions:detail', pk=commission.pk)
+    else:
+        form = CommissionForm(instance=commission)
+        formset = JobFormSet(
+            queryset=Job.objects.filter(commission=commission),
+            prefix='jobs'
+        )
+
+    return render(request, 'commissions/commission_form.html', {
+        'form': form,
+        'formset': formset,
+        'commission': commission,
+        'editing': True
+    })
