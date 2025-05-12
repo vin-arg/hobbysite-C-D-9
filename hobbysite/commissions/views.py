@@ -2,7 +2,7 @@ from django.db.models import Case, When, IntegerField
 from django.shortcuts import render
 from .models import Commission
 
-def commissions_list(request):
+def commission_list(request):
     commissions = Commission.objects.order_by(
         Case(
             When(status='Open', then=0),
@@ -26,7 +26,7 @@ def commissions_list(request):
             ).distinct().order_by('-created_on')
         })
         
-    return render(request, 'commission_content.html', ctx)
+    return render(request, 'commission_list.html', ctx)
 
 def commissions_detail(request, pk):
     commission_info = Commission.objects.get(pk=pk)
