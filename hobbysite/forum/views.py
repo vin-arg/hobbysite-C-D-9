@@ -19,8 +19,9 @@ def thread_list(request):
     else:
         others = threads
 
-    for thread in others:
-        grouped_threads[thread.category].append(thread)
+    for category in categories:
+        grouped_threads[category] = threads.filter(category=category).exclude(author=request.user.profile) if user_threads else threads.filter(category=category)
+
 
     return render(request, 'forum/thread_list.html', {
         'user_threads': user_threads,
